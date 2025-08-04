@@ -1,0 +1,295 @@
+ <form id="createProjectForm">
+          <div class="tab-content">
+
+            <!-- Basic Info Tab -->
+           <div class="tab-pane fade show active" id="basicInfo">
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Project Name *</label>
+      <input type="text" name="project_name" class="form-control" required>
+    </div>
+    <div class="col-md-12">
+      <label class="form-label">Project Description *</label>
+      <textarea name="project_description" class="form-control" rows="3" required></textarea>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Subscription ID *</label>
+      <select name="subscription_id" class="form-select" required>
+        <option value="">Select a subscription</option>
+        <option value="686d31ec384c522595b9c1c6">Subscription 1</option>
+        <option value="68808950dd13863478ed43b4">Subscription 2</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Status *</label>
+      <select name="status" class="form-select" required>
+        <option value="">Select Status</option>
+        <option value="Draft">Draft</option>
+        <option value="Pending">Pending</option>
+        <option value="Active">Active</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Industry Domain *</label>
+      <select name="industry_domain" class="form-select" required>
+        <option value="">Select Industry Domain</option>
+        <option value="Healthcare & MedTech">Healthcare & MedTech</option>
+        <option value="Finance">Finance</option>
+        <option value="Education">Education</option>
+      </select>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end mt-4">
+    <button type="button" class="btn btn-primary" onclick="nextTab('technology')">Next</button>
+  </div>
+</div>
+
+
+            <!-- Technology Tab -->
+           <div class="tab-pane fade" id="technology">
+  <h6>Technology Stack</h6>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label>Backend Technologies *</label>
+      <select name="backend" class="form-select" multiple required>
+        <option value="Node.js">Node.js</option>
+        <option value="Express">Express</option>
+        <option value="Python">Python</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Frontend Technologies</label>
+      <select name="frontend" class="form-select" multiple>
+        <option value="React">React</option>
+        <option value="NextJS">NextJS</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Database Technologies</label>
+      <select name="database" class="form-select" multiple>
+        <option value="MongoDB">MongoDB</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>AI Models</label>
+      <select name="ai_models" class="form-select" multiple>
+        <option value="GPT-4">GPT-4</option>
+        <option value="Med-PaLM">Med-PaLM</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>APIs</label>
+      <select name="apis" class="form-select" multiple>
+        <option value="OpenAI API">OpenAI API</option>
+        <option value="Google Med-PaLM API">Google Med-PaLM API</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Programming Languages</label>
+      <select name="programming_languages" class="form-select" multiple>
+        <option value="JavaScript">JavaScript</option>
+        <option value="TypeScript">TypeScript</option>
+        <option value="Python">Python</option>
+      </select>
+    </div>
+  </div>
+  <hr>
+  <h6>Infrastructure</h6>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label>Deployment Type</label>
+      <select name="deployment_type" class="form-select">
+        <option value="Cloud">Cloud</option>
+        <option value="On-premise">On-premise</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Cloud Provider</label>
+      <select name="cloud_provider" class="form-select" multiple>
+        <option value="AWS">AWS</option>
+        <option value="Azure">Azure</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Containerization</label>
+      <select name="containerization" class="form-select" multiple>
+        <option value="Docker">Docker</option>
+        <option value="Kubernetes">Kubernetes</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>APIs & Integrations</label>
+      <select name="apis_integrations" class="form-select" multiple>
+        <option value="OpenAI">OpenAI</option>
+        <option value="Google Cloud Healthcare API">Google Cloud Healthcare API</option>
+        <option value="EHR Integration">EHR Integration</option>
+      </select>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mt-4">
+    <button type="button" class="btn btn-secondary" onclick="nextTab('basicInfo')">Prev</button>
+    <button type="button" class="btn btn-primary" onclick="nextTab('dataSecurity')">Next</button>
+  </div>
+</div>
+
+            <!-- Data & Security Tab -->
+          <div class="tab-pane fade" id="dataSecurity">
+  <h6>Data Sources</h6>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label>Structure Type</label>
+      <select name="structure_type" class="form-select" multiple>
+        <option value="Structured">Structured</option>
+        <option value="Unstructured">Unstructured</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label>Access Type</label>
+      <select name="access_type" class="form-select" multiple>
+        <option value="Private">Private</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label>Processing Type</label>
+      <select name="processing_type" class="form-select" multiple>
+        <option value="Real-time">Real-time</option>
+        <option value="Batch">Batch</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Data Storage Location *</label>
+      <select name="data_storage_location" class="form-select">
+        <option value="Cloud-based">Cloud-based</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Data Sensitivity</label>
+      <select name="data_sensitivity" class="form-select" multiple>
+        <option value="PHI">PHI</option>
+        <option value="PII">PII</option>
+      </select>
+    </div>
+  </div>
+
+  <hr>
+  <h6>Security</h6>
+  <div class="row g-3 align-items-center">
+    <div class="col-md-3">
+      <label>Data Encryption</label>
+      <input type="checkbox" name="data_encryption" class="form-check-input" checked>
+    </div>
+    <div class="col-md-3">
+      <label>Encryption Type</label>
+      <select name="encryption_type" class="form-select">
+        <option value="AES-256">AES-256</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label>Audit Logging</label>
+      <input type="checkbox" name="audit_logging" class="form-check-input" checked>
+    </div>
+    <div class="col-md-3">
+      <label>User Consent Mechanism</label>
+      <input type="checkbox" name="user_consent_mechanism" class="form-check-input" checked>
+    </div>
+  </div>
+
+  <div class="col-md-6 mt-3">
+    <label>Access Control</label>
+    <select name="access_control" class="form-select" multiple>
+      <option value="Role-based">Role-based</option>
+      <option value="Multi-factor authentication">Multi-factor authentication</option>
+    </select>
+  </div>
+
+  <div class="d-flex justify-content-between mt-4">
+    <button type="button" class="btn btn-secondary" onclick="nextTab('technology')">Prev</button>
+    <button type="button" class="btn btn-primary" onclick="nextTab('compliance')">Next</button>
+  </div>
+</div>
+
+            <!-- Compliance Tab -->
+           <div class="tab-pane fade" id="compliance">
+  <h6>Compliance</h6>
+  <div class="mb-3">
+    <label>Compliance Standards</label>
+    <select name="compliance_standards" class="form-select" multiple>
+      <option value="HIPAA">HIPAA</option>
+      <option value="GDPR">GDPR</option>
+      <option value="EU AI Act">EU AI Act</option>
+    </select>
+  </div>
+
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="bias_risk_factors" id="biasToggle" checked>
+    <label class="form-check-label" for="biasToggle">Bias Risk Factors Identified</label>
+  </div>
+  <textarea class="form-control my-2" name="bias_risk_description" placeholder="Describe bias risk factors">Potential for demographic bias in medical advice and diagnosis suggestions</textarea>
+
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="fairness_transparency_practices" checked>
+    <label class="form-check-label">Fairness & Transparency Practices</label>
+  </div>
+
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="compliance_consultation" checked>
+    <label class="form-check-label">Compliance Consultation</label>
+  </div>
+
+  <hr>
+  <h6>AI & ML</h6>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="has_ai_ml" checked>
+    <label class="form-check-label">Has AI/ML Components</label>
+  </div>
+
+  <div class="my-2">
+    <label>AI Model Type</label>
+    <select name="ai_model_type" class="form-select" multiple>
+      <option value="Supervised">Supervised</option>
+      <option value="Reinforcement Learning">Reinforcement Learning</option>
+    </select>
+  </div>
+
+  <div class="my-2">
+    <label>Training Data Source</label>
+    <select name="training_data_source" class="form-select" multiple>
+      <option value="Proprietary">Proprietary</option>
+      <option value="Open-source">Open-source</option>
+    </select>
+  </div>
+
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="model_monitoring" checked>
+    <label class="form-check-label">Model Monitoring</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="bias_detection" checked>
+    <label class="form-check-label">Bias Detection</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="automated_decision_making">
+    <label class="form-check-label">Automated Decision Making</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="webhooks_notifications" checked>
+    <label class="form-check-label">Webhooks & Notifications</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="custom_rules" checked>
+    <label class="form-check-label">Custom Rules</label>
+  </div>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" name="third_party_plugins">
+    <label class="form-check-label">Third Party Plugins</label>
+  </div>
+
+  <div class="d-flex justify-content-between mt-4">
+    <button type="button" class="btn btn-secondary" onclick="nextTab('dataSecurity')">Prev</button>
+    <button type="submit" class="btn btn-success">Create Project</button>
+  </div>
+</div>
+
+
+          </div>
+        </form>
