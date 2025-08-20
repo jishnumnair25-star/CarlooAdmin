@@ -150,8 +150,52 @@
                                 <td>{{ \Carbon\Carbon::parse($sub['next_payment_date'])->format('d/m/Y') }}</td>
                                 <td>
                                     <div class="d-flex gap-1">
-                                        <!-- <a href="javascript:void(0);" class="btn btn-sm btn-purple"><i class="fas fa-pencil-alt text-white"></i></a> -->
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="fa fa-trash text-white"></i></a>
+                                        
+                                        @php
+                                            $subscriptionId = isset($sub['subscription_id']) ? $sub['subscription_id'] : (isset($sub['id']) ? $sub['id'] : null);
+                                        @endphp
+                                        @if(!empty($subscriptionId))
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger delete-subscription-btn" data-subscription-id="{{ $subscriptionId }}"><i class="fa fa-trash text-white"> delete</i></a>
+                                        @endif
+@php
+$token = session('access_token');
+@endphp
+<script>
+const SUBSCRIPTION_API_TOKEN = @json($token);
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.delete-subscription-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!confirm('Are you sure you want to delete this subscription?')) return;
+            const subId = btn.getAttribute('data-subscription-id');
+            btn.disabled = true;
+            fetch('https://carlo.algorethics.ai/api/subscription/' + subId, {
+                method: 'DELETE',
+                headers: {
+                    ...(SUBSCRIPTION_API_TOKEN ? { 'Authorization': 'Bearer ' + SUBSCRIPTION_API_TOKEN } : {})
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Delete API response:', data);
+                if (data.success) {
+                    // Remove the row from the table
+                    const row = btn.closest('tr');
+                    if (row) row.remove();
+                } else {
+                    alert('Failed to delete subscription.');
+                    btn.disabled = false;
+                }
+            })
+            .catch((err) => {
+                console.error('Delete API error:', err);
+                alert('Error connecting to subscription service.');
+                btn.disabled = false;
+            });
+        });
+    });
+});
+</script>
                                     </div>
                                 </td>
                             </tr>

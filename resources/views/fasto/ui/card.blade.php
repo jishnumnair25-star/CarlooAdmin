@@ -1,3 +1,9 @@
+@php
+$token = session('access_token');
+@endphp
+<script>
+const SUBSCRIPTION_API_TOKEN = @json($token);
+</script>
 @extends('layouts.default')
 
 @section('content')
@@ -193,7 +199,50 @@ Choose the plan that best fits your needs.</span>
     $tier = strtolower($plan['tier']);
 @endphp
 
-<a href="{{ $stripeUrls[$tier] ?? '#' }}" class="btn btn-primary" target="_blank">Subscribe</a>
+<button type="button" class="btn btn-primary subscribe-btn" data-tier="{{ $tier }}">Subscribe</button>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	document.querySelectorAll('.subscribe-btn').forEach(function(btn) {
+		btn.addEventListener('click', function(e) {
+			e.preventDefault();
+			const tier = btn.getAttribute('data-tier');
+			btn.disabled = true;
+			btn.textContent = 'Redirecting...';
+							fetch('https://carlo.algorethics.ai/api/subscription/checkout', {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+									...(SUBSCRIPTION_API_TOKEN ? { 'Authorization': 'Bearer ' + SUBSCRIPTION_API_TOKEN } : {})
+								},
+								body: JSON.stringify({
+									pricing_tier: tier,
+									billing_cycle: 'monthly',
+									success_url: window.location.origin + '/subscription/success',
+									cancel_url: window.location.origin + '/subscription/cancel',
+									discount_code: 'WELCOME10'
+								})
+							})
+							.then(res => res.json())
+							.then(data => {
+								console.log('Subscription API response:', data);
+								if (data.success && data.data && data.data.checkout_url) {
+									window.location.href = data.data.checkout_url;
+								} else {
+									alert('Failed to get checkout URL.');
+									btn.disabled = false;
+									btn.textContent = 'Subscribe';
+								}
+							})
+							.catch((err) => {
+								console.error('Subscription API error:', err);
+								alert('Error connecting to subscription service.');
+								btn.disabled = false;
+								btn.textContent = 'Subscribe';
+							});
+		});
+	});
+});
+</script>
             <!-- <button class="btn btn-primary">Subscribe</button> -->
             <ul class="features list-unstyled mt-3">
               <li>{{ $plan['projects_supported'] }} projects</li>

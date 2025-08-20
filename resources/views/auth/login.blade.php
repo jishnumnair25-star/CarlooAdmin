@@ -187,6 +187,7 @@
     <!-- Main login card -->
     <div class="glass-card">
         <div class="text-center mb-8">
+             <center> <img src="{{ asset('images/logo.jpg')}}" alt="Logo" style="max-width:100px; max-height:80px; margin-bottom:10px; animation: fadeInDown 1s;"></center>
             <h1 class="text-4xl font-bold title mb-2">Welcome Back</h1>
             <p class="text-white opacity-80">Sign in to your account</p>
         </div>
@@ -225,19 +226,19 @@
             </div>
             
             <div class="flex items-center justify-between">
-                <!-- <div class="checkbox-container">
-                    <input type="checkbox" id="remember">
-                    <label for="remember" class="text-white text-sm opacity-80 cursor-pointer">Remember me</label>
+                <div class="checkbox-container">
+                    <!-- <input type="checkbox" id="remember">
+                    <label for="remember" class="text-white text-sm opacity-80 cursor-pointer">Remember me</label> -->
                 </div>
-                <a href="#" class="text-white text-sm opacity-80 hover:opacity-100 hover:text-cyan-300 transition">Forgot password?</a>
-            </div> -->
+                <!-- <a href="#" class="text-white text-sm opacity-80 hover:opacity-100 hover:text-cyan-300 transition">Forgot password?</a> -->
+            </div>
             
             <button type="submit" class="w-full btn-login font-medium">LOGIN</button>
         </form>
         
-        <!-- <div class="text-center mt-8">
-            <p class="text-white text-sm opacity-80 mb-4">Or login with</p>
-            <div class="flex justify-center space-x-4">
+        <div class="text-center mt-8">
+            <!-- <p class="text-white text-sm opacity-80 mb-4">Or login with</p> -->
+            <!-- <div class="flex justify-center space-x-4">
                 <a href="#" class="social-icon">
                     <i class="fab fa-facebook-f text-white"></i>
                 </a>
@@ -247,12 +248,12 @@
                 <a href="#" class="social-icon">
                     <i class="fab fa-twitter text-white"></i>
                 </a>
-            </div>
-        </div> -->
+            </div> -->
+        </div>
         
-        <!-- <div class="text-center mt-8">
-            <p class="text-white text-sm opacity-80">Don't have an account? <a href="#" class="font-medium hover:opacity-100 text-cyan-300 transition">Sign up</a></p>
-        </div> -->
+        <div class="text-center mt-8">
+            <p class="text-white text-sm opacity-80">Don't have an account? <a href="{{ url('signup')}}" class="font-medium hover:opacity-100 text-cyan-300 transition">Sign up</a></p>
+        </div>
     </div>
 
     <script>

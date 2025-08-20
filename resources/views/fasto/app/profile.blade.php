@@ -3,59 +3,155 @@
 @section('content')
 <div class="container-fluid">
 	<!-- Add Project -->
-	<div class="modal fade" id="addProjectSidebar">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Create Project</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body">
-					<form>
-                        @csrf
-						<div class="form-group">
-							<label class="text-black font-w500">Project Name</label>
-							<input type="text" class="form-control">
-						</div>
-						<div class="form-group">
-									<label class="text-black font-w500">Dadeline</label>
-									<div class="cal-icon"><input type="date" class="form-control"><i class="far fa-calendar-alt"></i></div>
-								</div>
-						<div class="form-group">
-							<label class="text-black font-w500">Client Name</label>
-							<input type="text" class="form-control">
-						</div>
-						<div class="form-group">
-							<button type="button" class="btn btn-primary">CREATE</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<div class="row page-titles mx-0">
 		<div class="col-sm-6 p-md-0">
 			<div class="welcome-text">
-				<h4>Hi, welcome back!</h4>
-				<p class="mb-0">Your business dashboard template</p>
+				<h4>Hi,</h4>
+				<p class="mb-0">Update Your Profile</p>
 			</div>
 		</div>
-		<div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+		<!-- <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
 				<li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
 			</ol>
-		</div>
+		</div> -->
 	</div>
 	<!-- row -->
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-lg-12">
 			<div class="profile card card-body px-3 pt-3 pb-0">
 				<div class="profile-head">
 					<div class="photo-content">
 						<div class="cover-photo rounded"></div>
-					</div>
-					<div class="profile-info">
+					</div> -->
+
+<style>
+   
+
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      width: 400px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #3b82f6;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .card h2 {
+      text-align: center;
+      margin: 15px 0 5px;
+      color: #333;
+    }
+
+    .card p.username {
+      text-align: center;
+      color: green;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #153aa8;
+    }
+  </style>
+<center>
+    <div class="card">
+        <div class="avatar">
+            {{ strtoupper(substr($user['first_name'] ?? 'U', 0, 1)) }}{{ strtoupper(substr($user['last_name'] ?? 'N', 0, 1)) }}
+        </div>
+        <h2>{{ $user['first_name'] ?? '' }} {{ $user['last_name'] ?? '' }}</h2>
+		
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @elseif(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" value="{{ old('first_name', $user['first_name'] ?? '') }}">
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" value="{{ old('last_name', $user['last_name'] ?? '') }}">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user['email'] ?? '') }}">
+            </div>
+
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="tel" name="phone_number" value="{{ old('phone_number', $user['phone_number'] ?? '') }}">
+            </div>
+
+            <button type="submit" class="submit-btn">Save Changes</button>
+        </form>
+    </div>
+</center>
+
+
+
+
+					<!-- <div class="profile-info">
 						<div class="profile-photo">
 							<img src="{{ asset('images/profile/profile.png')}}" class="img-fluid rounded-circle" alt="">
 						</div>
@@ -78,19 +174,19 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-xl-4">
 			<div class="row">
 				<div class="col-xl-12">
 					<div class="card">
 						<div class="card-body">
-							<div class="profile-statistics">
-								<div class="text-center">
+							<div class="profile-statistics"> -->
+								<!-- <div class="text-center">
 									<div class="row">
 										<div class="col">
 											<h3 class="m-b-0">150</h3><span>Follower</span>
@@ -106,9 +202,9 @@
 										<a href="javascript:void(0);" class="btn btn-primary mb-1 me-1">Follow</a> 
 										<a href="javascript:void(0);" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#sendMessageModal">Send Message</a>
 									</div>
-								</div>
+								</div> -->
 								<!-- Modal -->
-								<div class="modal fade" id="sendMessageModal">
+								<!-- <div class="modal fade" id="sendMessageModal">
 									<div class="modal-dialog modal-dialog-centered" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -147,12 +243,12 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-xl-12">
+				<!-- <div class="col-xl-12">
 					<div class="card">
 						<div class="card-body">
 							<div class="profile-blog">
@@ -163,8 +259,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-xl-12">
+				</div> -->
+				<!-- <div class="col-xl-12">
 					<div class="card">
 						<div class="card-body">
 							<div class="profile-interest">
@@ -192,8 +288,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-xl-12">
+				</div> -->
+				<!-- <div class="col-xl-12">
 					<div class="card">
 						<div class="card-body">
 							<div class="profile-news">
@@ -222,10 +318,13 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
-		<div class="col-xl-8">
+
+
+		
+		<!-- <div class="col-xl-8">
 			<div class="card">
 				<div class="card-body">
 					<div class="profile-tab">
@@ -237,237 +336,10 @@
 								</li>
 								<li class="nav-item"><a href="#profile-settings" data-bs-toggle="tab" class="nav-link">Setting</a>
 								</li>
-							</ul>
-							<div class="tab-content">
-								<div id="my-posts" class="tab-pane fade active show">
-									<div class="my-post-content pt-3">
-										<div class="post-input">
-											<textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea> 
-											<a href="javascript:void(0);" class="btn btn-primary light me-1 px-3" data-bs-toggle="modal" data-bs-target="#linkModal"><i class="fa fa-link m-0"></i> </a>
-											<!-- Modal -->
-											<div class="modal fade" id="linkModal">
-												<div class="modal-dialog modal-dialog-centered" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title">Social Links</h5>
-															<button type="button" class="btn-close" data-bs-dismiss="modal">
-															</button>
-														</div>
-														<div class="modal-body">
-															<a class="btn-social facebook" href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
-															<a class="btn-social google-plus" href="javascript:void(0)"><i class="fab fa-google-plus-g"></i></a>
-															<a class="btn-social linkedin" href="javascript:void(0)" ><i class="fab fa-linkedin-in"></i></a>
-															<a class="btn-social instagram" href="javascript:void(0)"><i class="fab fa-instagram"></i></a>
-															<a class="btn-social twitter" href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
-															<a class="btn-social youtube" href="javascript:void(0)"><i class="fab fa-youtube"></i></a>
-															<a class="btn-social whatsapp" href="javascript:void(0)"><i class="fab fa-whatsapp"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<a href="javascript:void(0);" class="btn btn-primary light me-1 px-3" data-bs-toggle="modal" data-bs-target="#cameraModal"><i class="fa fa-camera m-0"></i> </a>
-											<!-- Modal -->
-											<div class="modal fade" id="cameraModal">
-												<div class="modal-dialog modal-dialog-centered" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title">Upload images</h5>
-															<button type="button" class="btn-close" data-bs-dismiss="modal">
-															</button>
-														</div>
-														<div class="modal-body">
-															<div class="input-group mb-3">
-																<span class="input-group-text">Upload</span>
-																<div class="form-file">
-																	<input type="file">
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">Post</a>
-											<!-- Modal -->
-											<div class="modal fade" id="postModal">
-												<div class="modal-dialog modal-dialog-centered" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title">Post</h5>
-															<button type="button" class="btn-close" data-bs-dismiss="modal">
-															</button>
-														</div>
-														<div class="modal-body">
-															 <textarea name="textarea" id="textarea2" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea>
-															 <a class="btn btn-primary" href="javascript:void(0)">Post</a>																		 
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="profile-uoloaded-post border-bottom-1 pb-5">
-											<img src="{{ asset('images/profile/8.jpg')}}" alt="" class="img-fluid w-100 rounded">
-											<a class="post-title" href="{{ url('post-details')}}"><h3 class="text-black">Collection of textile samples lay spread</h3></a>
-											<p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-												of spare which enjoy whole heart.</p>
-											<button class="btn btn-primary me-2"><span class="me-2"><i
-														class="fa fa-heart"></i></span>Like</button>
-											<button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#replyModal"><span class="me-2"><i
-														class="fa fa-reply"></i></span>Reply</button>
-										</div>
-										<div class="profile-uoloaded-post border-bottom-1 pb-5">
-											<img src="{{ asset('images/profile/9.jpg')}}" alt="" class="img-fluid w-100 rounded">
-											<a class="post-title" href="{{ url('post-details')}}"><h3 class="text-black">Collection of textile samples lay spread</h3></a>
-											<p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-												of spare which enjoy whole heart.</p>
-											<button class="btn btn-primary me-2"><span class="me-2"><i
-														class="fa fa-heart"></i></span>Like</button>
-											<button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#replyModal"><span class="me-2"><i
-														class="fa fa-reply"></i></span>Reply</button>
-										</div>
-										<div class="profile-uoloaded-post pb-3">
-											<img src="{{ asset('images/profile/8.jpg')}}" alt="" class="img-fluid w-100 rounded">
-											<a class="post-title" href="{{ url('post-details')}}"><h3 class="text-black">Collection of textile samples lay spread</h3></a>
-											<p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-												of spare which enjoy whole heart.</p>
-											<button class="btn btn-primary me-2"><span class="me-2"><i
-														class="fa fa-heart"></i></span>Like</button>
-											<button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#replyModal"><span class="me-2"><i
-														class="fa fa-reply"></i></span>Reply</button>
-										</div>
-									</div>
-								</div>
-								<div id="about-me" class="tab-pane fade">
-									<div class="profile-about-me">
-										<div class="pt-4 border-bottom-1 pb-3">
-											<h4 class="text-primary">About Me</h4>
-											<p class="mb-2">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence was created for the bliss of souls like mine.I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.</p>
-											<p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
-										</div>
-									</div>
-									<div class="profile-skills mb-5">
-										<h4 class="text-primary mb-2">Skills</h4>
-										<a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Admin</a>
-										<a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Dashboard</a>
-										<a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Photoshop</a>
-										<a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Bootstrap</a>
-										<a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Responsive</a>
-										<a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">Crypto</a>
-									</div>
-									<div class="profile-lang  mb-5">
-										<h4 class="text-primary mb-2">Language</h4>
-										<a href="javascript:void(0);" class="text-muted pe-3 f-s-16"><i class="flag-icon flag-icon-us"></i> English</a> 
-										<a href="javascript:void(0);" class="text-muted pe-3 f-s-16"><i class="flag-icon flag-icon-fr"></i> French</a>
-										<a href="javascript:void(0);" class="text-muted pe-3 f-s-16"><i class="flag-icon flag-icon-bd"></i> Bangla</a>
-									</div>
-									<div class="profile-personal-info">
-										<h4 class="text-primary mb-4">Personal Information</h4>
-										<div class="row mb-2">
-											<div class="col-sm-3 col-5">
-												<h5 class="f-w-500">Name <span class="pull-end">:</span>
-												</h5>
-											</div>
-											<div class="col-sm-9 col-7"><span>Mitchell C.Shay</span>
-											</div>
-										</div>
-										<div class="row mb-2">
-											<div class="col-sm-3 col-5">
-												<h5 class="f-w-500">Email <span class="pull-end">:</span>
-												</h5>
-											</div>
-											<div class="col-sm-9 col-7"><span>example@examplel.com</span>
-											</div>
-										</div>
-										<div class="row mb-2">
-											<div class="col-sm-3 col-5">
-												<h5 class="f-w-500">Availability <span class="pull-end">:</span></h5>
-											</div>
-											<div class="col-sm-9 col-7"><span>Full Time (Free Lancer)</span>
-											</div>
-										</div>
-										<div class="row mb-2">
-											<div class="col-sm-3 col-5">
-												<h5 class="f-w-500">Age <span class="pull-end">:</span>
-												</h5>
-											</div>
-											<div class="col-sm-9 col-7"><span>27</span>
-											</div>
-										</div>
-										<div class="row mb-2">
-											<div class="col-sm-3 col-5">
-												<h5 class="f-w-500">Location <span class="pull-end">:</span></h5>
-											</div>
-											<div class="col-sm-9 col-7"><span>Rosemont Avenue Melbourne,
-													Florida</span>
-											</div>
-										</div>
-										<div class="row mb-2">
-											<div class="col-sm-3 col-5">
-												<h5 class="f-w-500">Year Experience <span class="pull-end">:</span></h5>
-											</div>
-											<div class="col-sm-9 col-7"><span>07 Year Experiences</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="profile-settings" class="tab-pane fade">
-									<div class="pt-3">
-										<div class="settings-form">
-											<h4 class="text-primary">Account Setting</h4>
-											<form>
-                        @csrf
-												<div class="row">
-													<div class="mb-3 col-md-6">
-														<label class="form-label">Email</label>
-														<input type="email" placeholder="Email" class="form-control">
-													</div>
-													<div class="mb-3 col-md-6">
-														<label class="form-label">Password</label>
-														<input type="password" placeholder="Password" class="form-control">
-													</div>
-												</div>
-												<div class="mb-3">
-													<label class="form-label">Address</label>
-													<input type="text" placeholder="1234 Main St" class="form-control">
-												</div>
-												<div class="mb-3">
-													<label class="form-label">Address 2</label>
-													<input type="text" placeholder="Apartment, studio, or floor" class="form-control">
-												</div>
-												<div class="row">
-													<div class="mb-3 col-md-6">
-														<label class="form-label">City</label>
-														<input type="text" class="form-control">
-													</div>
-													<div class="mb-3 col-md-4">
-														<label class="form-label">State</label>
-														<select class="form-control default-select wide" id="inputState">
-															<option selected="">Choose...</option>
-															<option>Option 1</option>
-															<option>Option 2</option>
-															<option>Option 3</option>
-														</select>
-													</div>
-													<div class="mb-3 col-md-2">
-														<label class="form-label">Zip</label>
-														<input type="text" class="form-control">
-													</div>
-												</div>
-												<div class="mb-3">
-													<div class="form-check custom-checkbox">
-														<input type="checkbox" class="form-check-input" id="gridCheck">
-														<label class="form-check-label form-label" for="gridCheck"> Check me out</label>
-													</div>
-												</div>
-												<button class="btn btn-primary" type="submit">Sign
-													in</button>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+							</ul> -->
+							
 						<!-- Modal -->
-						<div class="modal fade" id="replyModal">
+						<!-- <div class="modal fade" id="replyModal">
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -486,11 +358,12 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
 </div>
 @endsection

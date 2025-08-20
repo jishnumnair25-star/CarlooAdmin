@@ -1,0 +1,421 @@
+<form id="createProjectForm" method="POST" action="{{ route('projects.store') }}">
+    @csrf
+       
+          <div class="tab-content">
+            <!-- BASIC INFO -->
+            <div class="tab-pane fade show active" id="basicInfo">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Project Name *</label>
+                  <input name="project_name" type="text" class="form-control" required>
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label">Project Description *</label>
+                  <textarea   name="project_description" class="form-control" required></textarea>
+                </div>
+              <div class="col-md-6">
+    <label class="form-label">Subscription ID *</label>
+    <select name="subscription_id" class="form-select" >
+       <option>6829abd5bbc6f3ec51a6a3b5</option>
+                    <option>682ac35ebbc6f3ec51a6a42f</option>
+   
+</select>
+</div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Status *</label>
+                  <select name="status" class="form-select" required>
+                    <option value="">Select</option>
+                    <option>Draft</option>
+                    <option>Pending</option>
+                    <option>Active</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Industry Domain *</label>
+                  <select name="industry_domain"  class="form-select" required>
+                    <option value="">Select</option>
+                   <option value="Healthcare & MedTech">Healthcare & MedTech</option>
+                    <option>Finance</option>
+                    <option>Education</option>
+                  </select>
+                </div>
+              </div>
+<!-- ----------------------------Optionaly added ----------------------------------------------- -->
+
+              <div class="mb-3">
+    <label for="ai_models" class="form-label">AI Models Used</label>
+    <input type="text" name="ai_models" class="form-control" placeholder="e.g. GPT-4, BERT" required>
+</div>
+<div class="mb-3">
+    <label for="apis" class="form-label">APIs Used</label>
+    <input type="text" name="apis" class="form-control" placeholder="e.g. OpenAI API, Google Maps API" required>
+</div>
+<!-- ------------------------------------------------------------------------------------------------------- -->
+
+              <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-secondary prev-btn" disabled>Previous</button>
+                <button type="button" class="btn btn-primary next-btn">Next</button>
+              </div>
+            </div>
+
+            <!-- TECHNOLOGY -->
+            <div class="tab-pane fade" id="technology">
+    <h6>Technology Stack</h6>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label>Backend Technologies *</label>
+        <select name="technology_stack[backend][]" class="form-select" id="backend-tech" multiple required>
+          <option value="Node.js">Node.js</option>
+          <option value="Express">Express</option>
+          <option value="Python">Python</option>
+          <option value="Django">Django</option>
+          <option value="Laravel">Laravel</option>
+        </select>
+      </div>
+      
+      <div class="col-md-6">
+        <label>Frontend Technologies</label>
+        <select  name="technology_stack[frontend][]" class="form-select" id="frontend-tech" multiple>
+          <option value="React">React</option>
+          <option value="NextJS">NextJS</option>
+          <option value="Vue">Vue</option>
+          <option value="Angular">Angular</option>
+        </select>
+      </div>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize multi-select dropdowns
+    const backendTech = new Choices('#backend-tech', {
+        removeItemButton: true,
+        searchEnabled: true,
+        placeholderValue: "Select backend technologies",
+        shouldSort: false
+    });
+    
+    const frontendTech = new Choices('#frontend-tech', {
+        removeItemButton: true,
+        searchEnabled: true,
+        placeholderValue: "Select frontend technologies",
+        shouldSort: false
+    });
+    
+    // Initialize other multi-selects similarly
+    const otherMultiSelects = document.querySelectorAll('select[multiple]:not(#backend-tech):not(#frontend-tech)');
+    otherMultiSelects.forEach(select => {
+        new Choices(select, {
+            removeItemButton: true,
+            searchEnabled: true,
+            shouldSort: false
+        });
+    });
+    
+    // Your existing tab navigation code
+    const nextButtons = document.querySelectorAll('.next-btn');
+    const prevButtons = document.querySelectorAll('.prev-btn');
+    
+    nextButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const currentTab = this.closest('.tab-pane');
+            const nextTab = currentTab.nextElementSibling;
+            
+            if (nextTab) {
+                const nextTabId = nextTab.id;
+                const tabButton = document.querySelector(`.nav-tabs button[data-bs-target="#${nextTabId}"]`);
+                if (tabButton) {
+                    const tabInstance = new bootstrap.Tab(tabButton);
+                    tabInstance.show();
+                }
+            }
+        });
+    });
+    
+    prevButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const currentTab = this.closest('.tab-pane');
+            const prevTab = currentTab.previousElementSibling;
+            
+            if (prevTab) {
+                const prevTabId = prevTab.id;
+                const tabButton = document.querySelector(`.nav-tabs button[data-bs-target="#${prevTabId}"]`);
+                if (tabButton) {
+                    const tabInstance = new bootstrap.Tab(tabButton);
+                    tabInstance.show();
+                }
+            }
+        });
+    });
+});
+</script>
+                <div class="col-md-6">
+                  <label>Frontend Technologies</label>
+                  <select class="form-select" multiple>
+                    <option>React</option>
+                    <option>NextJS</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Database Technologies</label>
+                  <select class="form-select" multiple>
+                    <option>MongoDB</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>AI Models</label>
+                  <select class="form-select" multiple>
+                    <option>GPT-4</option>
+                    <option>Med-PaLM</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>APIs</label>
+                  <select class="form-select" multiple>
+                    <option>OpenAI</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+
+                   <style>
+                    
+.mt-100 {
+    margin-top: 50px;
+}
+
+body {
+    background: grey;
+    color: #514B64;
+    min-height: 100vh
+}
+h2 {
+  color: darkgreen;
+}
+
+#css-dropdown
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 300px;
+    height: 42px;
+    margin: 100px auto 0 auto;
+}
+                   </style>
+<div class="row d-flex justify-content-center mt-100">
+    <div class="col-md-6"> <select id="choices-multiple-remove-button" placeholder="Select up to 3 tags" multiple>
+            <option value="Author" onclick="filterSelection('Author')">Author</option>
+            <option value="MSelect">Multiselect Dropdown</option>
+            <option value="Accordions" >Accordions</option>
+            <option value="Radio Buttons">Radio Buttons</option>
+            <option value="SearchBox">Search Boxes</option>
+            <option value="Tables">Tables</option>
+            <option value="Profiles">Profiles</option>
+            <option value="Sliders">Sliders</option>
+            <option value="Tabs">Tabs</option>
+            <option value="NavMenu">Navigation Menu</option>
+            <option value="Cities">Cities</option>
+            <option value="Countries">Countries</option>
+            <option value="Regions">Regions</option>
+        </select>
+  </div>
+</div>
+<br><br>
+</section>
+
+<script>
+  $(document).ready(function(){
+
+ var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+ removeItemButton: true,
+ maxItemCount:3,
+ searchResultLimit:5,
+ renderChoiceLimit:5
+ });
+
+
+ });
+</script>
+
+
+
+
+
+
+                  <label>Programming Languages</label>
+                  <select class="form-select" multiple>
+                    <option>Python</option>
+                    <option>JavaScript</option>
+                  </select>
+                </div>
+              </div>
+              <hr>
+              <h6>Infrastructure</h6>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label>Deployment Type</label>
+                  <select name="infrastructure[deployment_type]" class="form-select">
+                    <option>Cloud</option>
+                    <option>On-premise</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Cloud Provider</label>
+                  <select class="form-select" multiple>
+                    <option>AWS</option>
+                    <option>Azure</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Containerization</label>
+                  <select class="form-select" multiple>
+                    <option>Docker</option>
+                    <option>Kubernetes</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                <button type="button" class="btn btn-primary next-btn">Next</button>
+              </div>
+            </div>
+
+           
+            <div class="tab-pane fade" id="dataSecurity">
+              <h6>Data Sources</h6>
+              <div class="row g-3">
+                <div class="col-md-4">
+                 <label for="structure_type" class="form-label">Structure Type</label>
+    <select name="structure_type" class="form-select" required>
+        <option value="">Select</option>
+        <option value="Monolithic">Monolithic</option>
+        <option value="Microservices">Microservices</option>
+        <option value="Serverless">Serverless</option>
+    </select>
+                </div>
+                <div class="col-md-4">
+                  <label>Access Type</label>
+                  <select class="form-select" multiple>
+                    <option>Private</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label>Processing Type</label>
+                  <select class="form-select" multiple>
+                    <option>Real-time</option>
+                    <option>Batch</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Data Storage Location *</label>
+                  <select name="data_storage_location" class="form-select" required>
+                    <option>Cloud-based</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Data Sensitivity</label>
+                  <select class="form-select" multiple>
+                    <option>PHI</option>
+                    <option>PII</option>
+                  </select>
+                </div>
+              </div>
+
+              <hr>
+              <h6>Security</h6>
+              <div class="row g-3 align-items-center">
+                <div class="col-md-3">
+                  <label>Data Encryption</label>
+                  <input type="checkbox" class="form-check-input" id="dataEncryptionToggle">
+                </div>
+                <div class="col-md-3 conditional-field" id="encryptionTypeContainer" style="display:none;">
+                  <label>Encryption Type</label>
+                  <select  name="encryption_type" class="form-select">
+                    <option>AES-256</option>
+                    <option>RSA-2048</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Audit Logging</label>
+                  <input type="checkbox" class="form-check-input" checked>
+                </div>
+                <div class="col-md-3">
+                  <label>User Consent Mechanism</label>
+                  <input type="checkbox" class="form-check-input" checked>
+                </div>
+              </div>
+              <div class="col-md-6 mt-3">
+                <label>Access Control</label>
+                <select class="form-select" multiple>
+                  <option>Role-based</option>
+                  <option>MFA</option>
+                </select>
+              </div>
+
+              <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                <button type="button" class="btn btn-primary next-btn">Next</button>
+              </div>
+            </div>
+
+            
+            <div class="tab-pane fade" id="compliance">
+              <h6>Compliance</h6>
+              <div class="mb-3">
+                <label>Compliance Standards</label>
+                <select class="form-select" multiple>
+                  <option>HIPAA</option>
+                  <option>GDPR</option>
+                </select>
+              </div>
+
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox"  name="bias_identified" id="biasToggle">
+                <label class="form-check-label">Bias Risk Factors Identified</label>
+              </div>
+              <div class="conditional-field mt-2" id="biasRiskDescriptionContainer" style="display:none;">
+                <textarea class="form-control" placeholder="Describe bias risk factors"></textarea>
+              </div>
+
+              <div class="form-check form-switch mt-3">
+                <input class="form-check-input" type="checkbox" checked>
+                <label class="form-check-label">Fairness & Transparency Practices</label>
+              </div>
+
+              <hr>
+              <h6>AI & ML</h6>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" checked>
+                <label class="form-check-label">Has AI/ML Components</label>
+              </div>
+
+              <div class="my-2">
+                <label>AI Model Type</label>
+                <select class="form-select" multiple>
+                  <option>Supervised</option>
+                  <option>Reinforcement</option>
+                </select>
+              </div>
+              <div class="my-2">
+                <label>Training Data Source</label>
+                <select class="form-select" multiple>
+                  <option>Proprietary</option>
+                  <option>Open-source</option>
+                </select>
+              </div>
+
+              <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                <button type="submit" class="btn btn-success create-btn">Create Project</button>
+
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -36,7 +36,9 @@
 	<div class="project-nav">
 		
 		<div class="d-flex align-items-center">
-			<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#addOrderModal"  class="btn btn-primary rounded text-white">+ New Project</a>
+			<!-- <a class="add-project-sidebar btn btn-primary" href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#addProjectSidebar" >+ 
+         Project</a>
+			
 			<ul class="grid-tabs nav nav-tabs ms-4">
 				<li class="nav-item">
 					<a href="#list" class="nav-link active" data-bs-toggle="tab">
@@ -46,7 +48,7 @@
 						<path d="M19.9998 17H3.99976C3.20411 17 2.44104 17.3161 1.87844 17.8787C1.31583 18.4413 0.999756 19.2044 0.999756 20C0.999756 20.7956 1.31583 21.5587 1.87844 22.1213C2.44104 22.6839 3.20411 23 3.99976 23H19.9998C20.7954 23 21.5585 22.6839 22.1211 22.1213C22.6837 21.5587 22.9998 20.7956 22.9998 20C22.9998 19.2044 22.6837 18.4413 22.1211 17.8787C21.5585 17.3161 20.7954 17 19.9998 17Z" fill="#CBCBCB"></path>
 						</svg>
 					</a>
-				</li>
+				</li> -->
 				<!-- <li class="nav-item">
 					<a href="#boxed" class="nav-link" data-bs-toggle="tab">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +63,7 @@
 			<!-- Add Order -->
 
 
-<div class="modal fade" id="addProjectSidebar">
+<div class="modal fade" id="addProjectSidebar" >
 			<!-- MODAL: Create New Project -->
 <div class="modal fade" id="addOrderModal" tabindex="-1" aria-labelledby="createProjectLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -80,239 +82,7 @@
           <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#compliance">Compliance & AI/ML</button></li>
         </ul>
 
-        <form method="POST" action="https://carlo.algorethics.ai/api/project/create">
-          @csrf
-          <div class="tab-content">
-            <!-- Basic Info -->
-            <div class="tab-pane fade show active" id="basicInfo">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label">Project Name *</label>
-                  <input type="text" name="project_name" class="form-control" value="Healthcare Chatbot Assistant" required>
-                </div>
-                <div class="col-md-12">
-                  <label class="form-label">Project Description *</label>
-                  <textarea name="project_description" class="form-control" rows="3" required>An AI assistant specialized in providing healthcare information to medical professionals with HIPAA compliance</textarea>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Subscription ID *</label>
-                  <input type="text" name="subscription_id" class="form-control" value="68808950dd13863478ed43b4" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Status *</label>
-                  <select name="status" class="form-select" required>
-                    <option value="Draft" selected>Draft</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Industry Domain *</label>
-                  <select name="industry_domain" class="form-select" required>
-                    <option value="Healthcare & MedTech" selected>Healthcare & MedTech</option>
-                  </select>
-                </div>
-              </div>
-              <div class="d-flex justify-content-end mt-4">
-                <button class="btn btn-primary" type="button" data-bs-target="#technology" data-bs-toggle="tab">Next</button>
-              </div>
-            </div>
-
-            <!-- Technology -->
-            <div class="tab-pane fade" id="technology">
-              <h6>Technology Stack</h6>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label>Backend Technologies *</label>
-                  <select name="backend[]" class="form-select" multiple>
-                    <option selected>Node.js</option>
-                    <option selected>Express</option>
-                    <option selected>MongoDB</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label>Frontend Technologies</label>
-                  <select name="frontend[]" class="form-select" multiple>
-                    <option selected>React</option>
-                    <option selected>NextJS</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label>Database Technologies</label>
-                  <select name="database[]" class="form-select" multiple>
-                    <option selected>MongoDB</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label>AI Models</label>
-                  <select name="ai_models[]" class="form-select" multiple>
-                    <option selected>GPT-4</option>
-                    <option selected>Med-PaLM</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label>APIs</label>
-                  <select name="apis[]" class="form-select" multiple>
-                    <option selected>OpenAI API</option>
-                    <option selected>Google Med-PaLM API</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label>Programming Languages</label>
-                  <select name="programming_languages[]" class="form-select" multiple>
-                    <option selected>JavaScript</option>
-                    <option selected>TypeScript</option>
-                    <option selected>Python</option>
-                  </select>
-                </div>
-              </div>
-              <hr>
-              <h6>Infrastructure</h6>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label>Deployment Type</label>
-                  <input type="text" name="deployment_type" class="form-control" value="Cloud">
-                </div>
-                <div class="col-md-6">
-                  <label>Cloud Provider</label>
-                  <select name="cloud_provider[]" class="form-select" multiple>
-                    <option selected>AWS</option>
-                    <option selected>Azure</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label>Containerization</label>
-                  <select name="containerization[]" class="form-select" multiple>
-                    <option selected>Docker</option>
-                    <option selected>Kubernetes</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label>APIs & Integrations</label>
-                  <select name="apis_integrations[]" class="form-select" multiple>
-                    <option selected>OpenAI</option>
-                    <option selected>Google Cloud Healthcare API</option>
-                    <option selected>EHR Integration</option>
-                  </select>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary" type="button" data-bs-target="#basicInfo" data-bs-toggle="tab">Prev</button>
-                <button class="btn btn-primary" type="button" data-bs-target="#dataSecurity" data-bs-toggle="tab">Next</button>
-              </div>
-            </div>
-
-            <!-- Data & Security -->
-            <div class="tab-pane fade" id="dataSecurity">
-              <h6>Data Sources</h6>
-              <div class="row g-3">
-                <div class="col-md-4">
-                  <label>Structure Type</label>
-                  <select name="structure_type[]" class="form-select" multiple>
-                    <option selected>Structured</option>
-                    <option selected>Unstructured</option>
-                  </select>
-                </div>
-                <div class="col-md-4">
-                  <label>Access Type</label>
-                  <select name="access_type[]" class="form-select" multiple>
-                    <option selected>Private</option>
-                  </select>
-                </div>
-                <div class="col-md-4">
-                  <label>Processing Type</label>
-                  <select name="processing_type[]" class="form-select" multiple>
-                    <option selected>Real-time</option>
-                    <option selected>Batch</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label>Data Storage Location *</label>
-                  <input type="text" name="data_storage_location" class="form-control" value="Cloud-based" required>
-                </div>
-                <div class="col-md-6">
-                  <label>Data Sensitivity</label>
-                  <select name="data_sensitivity[]" class="form-select" multiple>
-                    <option selected>PHI</option>
-                    <option selected>PII</option>
-                  </select>
-                </div>
-              </div>
-              <hr>
-              <h6>Security</h6>
-              <div class="row g-3">
-                <div class="col-md-3">
-                  <label>Data Encryption</label>
-                  <input type="checkbox" name="data_encryption" class="form-check-input" checked>
-                </div>
-                <div class="col-md-6">
-                  <label>Access Control</label>
-                  <select name="access_control[]" class="form-select" multiple>
-                    <option selected>Role-based</option>
-                    <option selected>Multi-factor authentication</option>
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <label>Audit Logging</label>
-                  <input type="checkbox" name="audit_logging" class="form-check-input" checked>
-                </div>
-                <div class="col-md-6">
-                  <label>User Consent Mechanism</label>
-                  <input type="checkbox" name="user_consent_mechanism" class="form-check-input" checked>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary" type="button" data-bs-target="#technology" data-bs-toggle="tab">Prev</button>
-                <button class="btn btn-primary" type="button" data-bs-target="#compliance" data-bs-toggle="tab">Next</button>
-              </div>
-            </div>
-
-            <!-- Compliance & AI/ML -->
-            <div class="tab-pane fade" id="compliance">
-              <h6>Compliance</h6>
-              <div class="mb-3">
-                <label>Compliance Standards</label>
-                <select name="compliance_standards[]" class="form-select" multiple>
-                  <option selected>HIPAA</option>
-                  <option selected>GDPR</option>
-                  <option selected>EU AI Act</option>
-                </select>
-              </div>
-              <div class="form-check form-switch">
-                <input name="bias_risk_factors" class="form-check-input" type="checkbox" checked>
-                <label class="form-check-label">Bias Risk Factors Identified</label>
-              </div>
-              <div class="form-check form-switch">
-                <input name="fairness_transparency_practices" class="form-check-input" type="checkbox" checked>
-                <label class="form-check-label">Fairness & Transparency Practices</label>
-              </div>
-              <div class="form-check form-switch">
-                <input name="compliance_consultation" class="form-check-input" type="checkbox" checked>
-                <label class="form-check-label">Compliance Consultation</label>
-              </div>
-              <hr>
-              <h6>AI & ML</h6>
-              <div class="form-check form-switch">
-                <input name="has_ai_ml" class="form-check-input" type="checkbox" checked>
-                <label class="form-check-label">Has AI/ML Components</label>
-              </div>
-              <div class="form-check form-switch">
-                <input name="webhooks_notifications" class="form-check-input" type="checkbox" checked>
-                <label class="form-check-label">Webhooks & Notifications</label>
-              </div>
-              <div class="form-check form-switch">
-                <input name="custom_rules" class="form-check-input" type="checkbox" checked>
-                <label class="form-check-label">Custom Rules</label>
-              </div>
-              <div class="form-check form-switch">
-                <input name="third_party_plugins" class="form-check-input" type="checkbox">
-                <label class="form-check-label">Third Party Plugins</label>
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary" type="button" data-bs-target="#dataSecurity" data-bs-toggle="tab">Prev</button>
-                <button class="btn btn-success" type="submit">Create Project</button>
-              </div>
-            </div>
-          </div>
-        </form>
+      
       </div>
     </div>
   </div>
@@ -322,11 +92,20 @@
 		</div>
 	</div>
 <style>
-	.filter-tab.active {
-    background-color: #0d6efd;
-    color: white;
-    border-color: #0d6efd;
-}
+    .filter-tab.active {
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+    }
+    /* Make cards more compact */
+    .project-card .card-body { padding: 0.5rem; }
+    .project-card .mb-2 { margin-bottom: 0.25rem !important; }
+    .project-card { margin-bottom: 0.5rem; }
+    /* Ensure edit modal content is scrollable and submit button stays visible */
+    #editProjectModal .modal-body { max-height: calc(100vh - 200px); overflow-y: auto; }
+    #editProjectModal .modal-dialog { margin-top: 1.25rem; margin-bottom: 1.25rem; }
+    #editProjectModal .modal-content { max-height: calc(100vh - 2.5rem); display: flex; }
+    #editProjectModal .modal-body { flex: 1 1 auto; }
 </style>
 
 	
@@ -335,8 +114,7 @@
 			<div class="tab-content project-list-group" id="ListViewTabLink">	
 				<div class="tab-pane fade active show" id="navpills-1">
 
-@section('content')
-<div class="d-flex flex-wrap gap-2 mb-4" id="projectTabs">
+<div class="d-flex flex-wrap gap-2 mb-4" id="statusFilterContainer">
    @php
     $statuses = ['All', 'Draft', 'Pending', 'Active', 'In Active', 'Archived'];
     $icons = [
@@ -357,7 +135,7 @@
     ];
 @endphp
 
-<ul class="nav nav-pills mb-3 gap-2" id="projectTabs">
+<ul class="nav nav-pills mb-3 gap-2" id="statusFilter">
     @foreach ($statuses as $status)
         @php
             $key = strtolower($status);
@@ -378,1358 +156,724 @@
 
 
     <div id="projectList">
-        @foreach($projects as $project)
-            <div class="card mb-3 project-card" data-status="{{ strtolower($project['status'] ?? 'unknown') }}">
-                <div class="card-body p-3">
-                    <div class="row align-items-center">
-
-                        <!-- Project ID + Name -->
-                        <div class="col-md-3 mb-2">
-                            <p class="text-primary mb-1 small">#{{ $project['subscription_id'] ?? 'N/A' }}</p>
-                            <h5 class="mb-0">
-                                <a href="#" class="text-dark text-decoration-none">{{ $project['project_name'] ?? 'Unnamed Project' }}</a>
-                            </h5>
-                            <small class="text-muted">
-                                <i class="far fa-calendar me-1"></i>
-                                {{ \Carbon\Carbon::parse($project['created_at'] ?? now())->format('M d, Y') }}
-                            </small>
-                        </div>
-
-                        <!-- Industry -->
-                        <div class="col-md-3 mb-2">
-                            <div class="d-flex align-items-center">
-                                <img src="{{ asset('images/projects/Untitled-1.jpg') }}" alt="" class="me-2" width="40">
-                                <div>
-                                    <small>Industry</small>
-                                    <div class="fw-semibold">{{ $project['industry_domain'] ?? '-' }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tech Stack -->
-                        <div class="col-md-2 mb-2">
-                            <div class="d-flex align-items-center">
-                                <img src="{{ asset('images/projects/Untitled-2.jpg') }}" alt="" class="me-2" width="40">
-                                <div>
-                                    <small>Technology</small>
-                                    <div class="fw-semibold">{{ $project['technology_stack']['backend'][0] ?? '-' }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Status -->
-                        <div class="col-md-2 mb-2">
-                            <div>
-                                <small>Status</small>
-                                <div class="fw-bold">{{ ucfirst($project['status'] ?? 'Unknown') }}</div>
-                            </div>
-                        </div>
-
-                        <!-- Actions -->
-                        <div class="col-md-2 mb-2">
-                            <div class="dropdown text-end">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    Action
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="{{ route('project.view', $project['subscription_id']) }}">View</a></li>
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
+    @if(count($projects) === 0)
+      <div id="emptyState" class="alert alert-info">No projects found.</div>
+    @else
+      @foreach($projects as $project)
+        <div class="card mb-2 project-card" data-status="{{ strtolower($project['status'] ?? 'unknown') }}">
+          <div class="card-body p-3">
+            <div class="row align-items-center">
+              <!-- Project ID + Name -->
+              <div class="col-md-3 mb-2">
+                <p class="text-primary mb-1 small">#{{ $project['subscription_id'] ?? 'N/A' }}</p>
+                <h5 class="mb-0">
+                  <a href="#" class="text-dark text-decoration-none">{{ $project['project_name'] ?? 'Unnamed Project' }}</a>
+                </h5>
+                <small class="text-muted">
+                  <i class="far fa-calendar me-1"></i>
+                  {{ \Carbon\Carbon::parse($project['created_at'] ?? now())->format('M d, Y') }}
+                </small>
+              </div>
+              <!-- Industry -->
+              <div class="col-md-3 mb-2">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <small>Industry</small>
+                    <div class="fw-semibold">{{ $project['industry_domain'] ?? '-' }}</div>
+                  </div>
                 </div>
+              </div>
+              <!-- Tech Stack -->
+              <div class="col-md-2 mb-2">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <small>Technology</small>
+                    <div class="fw-semibold">{{ $project['technology_stack']['backend'][0] ?? '-' }}</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Status -->
+              <div class="col-md-2 mb-2">
+                <div>
+                  <small>Status</small>
+                  <div class="fw-bold">{{ ucfirst($project['status'] ?? 'Unknown') }}</div>
+                </div>
+              </div>
+              <!-- Actions -->
+              <div class="col-md-2 mb-2">
+                <div class="dropdown text-end">
+                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Action
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{{ route('project.view', $project['subscription_id']) }}">View</a></li>
+                    <li><a class="dropdown-item edit-project" href="#" data-id="{{ $project['id'] }}">Edit</a></li>
+                    <li><a href="#" class="dropdown-item text-danger delete-project" data-id="{{ $project['id'] }}">Delete</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
-        @endforeach
-    </div>
-</div>
-@endsection
-
-@push('scripts')
+          </div>
+        </div>
+      @endforeach
+    @endif
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
-    const tabs = document.querySelectorAll('#projectTabs .nav-link');
-    const cards = document.querySelectorAll('.project-card');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            tabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-
-            const selectedStatus = this.getAttribute('data-status');
-
-            cards.forEach(card => {
-                if (selectedStatus === 'all' || card.dataset.status === selectedStatus) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.delete-project').forEach(function (button) {
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      const id = this.dataset.id;
+      if (!confirm(id + ' Are you sure you want to delete this project?')) return;
+      fetch(`/project/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
                 }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Project deleted successfully.');
+                    location.reload(); // Refresh list
+                } else {
+                    alert('Failed to delete project.');
+                }
+            })
+            .catch(error => {
+                console.error('Delete error:', error);
+                alert('Error occurred while deleting.');
             });
         });
     });
 });
-
 </script>
-@endpush
-  
 
 
 
 
 
-					<!-- <div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<p class="text-primary mb-2">#P-000441425</p>
-								<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Redesign Kripton Mobile App</a></h4>
-								<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-1.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Alex Noer</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-2.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Yoast Esec</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-warning light status-btn">Pending</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">View</a>
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> -->
-					<!-- <div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<div>
-									<p class="text-primary mb-2">#P-000441425</p>
-									<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Build Branding Persona for Etza.id</a></h4>
-									<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-3.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Kevin Sigh</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-4.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Yuri Hanako</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-info light status-btn">ON PRORESS</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<p class="text-primary mb-2">#P-000441425</p>
-								<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Reduce Website Page Size Omah</a></h4>
-								<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-5.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Endge Aes</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-6.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Peter Parkur</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-danger light status-btn">CLOSED</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<p class="text-primary mb-2">#P-000441425</p>
-								<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Manage SEO for Eclan Company P..</a></h4>
-								<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-7.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Angela Moss</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-8.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Olivia Jonson</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-info light status-btn">ON PROGERSS</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<div>
-									<p class="text-primary mb-2">#P-000441425</p>
-									<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Redesign Kripton Mobile App</a></h4>
-									<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-9.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Tiffany</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-10.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Bella Sirait</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-warning light status-btn">Pending</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> -->
-				</div>
-				<!-- <div class="tab-pane fade" id="navpills-2">
-					<div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<div>
-									<p class="text-primary mb-2">#P-000441425</p>
-									<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Manage SEO for Eclan Company P..</a></h4>
-									<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-7.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Angela Moss</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-8.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Olivia Jonson</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-info light status-btn">ON PROGERSS</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<div>
-									<p class="text-primary mb-2">#P-000441425</p>
-									<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Build Branding Persona for Etza.id</a></h4>
-									<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-3.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Kevin Sigh</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-4.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Yuri Hanako</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-info light status-btn">ON PRORESS</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="navpills-3">
-					<div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<div>
-									<p class="text-primary mb-2">#P-000441425</p>
-									<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Redesign Kripton Mobile App</a></h4>
-									<div class="text-dark"><i class="fa fa-calendar-o me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-9.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Tiffany</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-10.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Bella Sirait</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-warning light status-btn">Pending</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<div>
-									<p class="text-primary mb-2">#P-000441425</p>
-									<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Redesign Kripton Mobile App</a></h4>
-									<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-1.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Alex Noer</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-2.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Yoast Esec</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-warning light status-btn">Pending</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="navpills-4">
-					<div class="card">
-						<div class="project-info">
-							<div class="col-xl-3 col-xxl-3 my-2 col-lg-4 col-sm-6">
-								<div>
-									<p class="text-primary mb-2">#P-000441425</p>
-									<h4 class="title font-w600 mb-3"><a href="{{ url('post-details')}}" class="text-black">Reduce Website Page Size Omah</a></h4>
-									<div class="text-dark"><i class="far fa-calendar me-3" aria-hidden="true"></i>Created on Sep 8th, 2020</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-5.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Client</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w50 text-black">Endge Aes</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-4 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="project-media">
-										<img src="{{ asset('images/projects/Untitled-6.jpg')}}" alt="">
-									</div>
-									<div class="ms-3">
-										<span>Person in charge</span>
-										<h5 class="mb-0 pt-1 fs-18 font-w500 text-black">Peter Parkur</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-3 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex align-items-center">
-									<div class="power-ic">
-										<i class="fa fa-bolt" aria-hidden="true"></i>
-									</div>
-									<div class="ms-3">
-										<span>Deadline</span>
-										<h5 class="mb-0 pt-1 font-w500 text-black">Tuesday,Sep 29th 2020</h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-2 my-2 col-xxl-3 col-lg-6 col-sm-6">
-								<div class="d-flex project-status align-items-center">
-									<a  href="javascript:void(0);" class="btn btn-danger light status-btn">CLOSED</a>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-												<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-end">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
-			</div>	
-		</div>
-		<!-- <div class="tab-pane fade" id="boxed">
-			<div class="tab-content" id="BoxedViewTabLink">
-				<div class="tab-pane fade show active" id="boxed_navpills-1">
-					<div class="row">
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-info">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-primary">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-warning">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-danger">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-info">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="boxed_navpills-2">
-					<div class="row">
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-info">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-info">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="boxed_navpills-3">
-					<div class="row">
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-warning">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-warning">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-warning">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-warning">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="boxed_navpills-4">
-					<div class="row">
-						<div class="col-xl-3 col-xxl-4">
-							<div class="card project-boxed">
-								<div class="img-bx">
-									<img src="{{ asset('images/big/img1.jpg')}}" alt="" class="w-100 ">
-									<span class="badge badge-danger">Progress</span>
-								</div>
-								<div class="card-header align-items-start">
-									<div>
-										<p class="fs-14 mb-2 text-primary">#P-000441425</p>
-										<h6 class="fs-18 font-w500 mb-3">
-											<a href="javascript:void(0);" class="text-black user-name">Build Branding Persona for Etza.id</a>
-										</h6>
-										<div class="text-dark fs-14 text-nowrap">
-											<i class="fa fa-calendar-o mr-3" aria-hidden="true"></i>
-											Created on Sep 8th, 2020
-										</div>
-									</div>
-									<div class="dropdown">
-										<a href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											<path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-											</svg>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-											<a class="dropdown-item" href="javascript:void(0);">Delete</a>
-										</div>
-									</div>
-								</div>
-								<div class="card-body p-0 pb-3">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">
-											<span class="mb-0 title">Deadline</span> :
-											<span class="text-black ml-2">Monday, Sep 26th 2020</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Client</span> :
-											<span class="text-black ml-2">Kevin Sigh</span>
-										</li>
-										<li class="list-group-item">
-											<span class="mb-0 title">Person in charge</span> :
-											<span class="text-black desc-text ml-2">Yuri Hanako</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
-	</div>	
+
+
+
+
+
+
+
+
+
+
+
+		<div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <form id="projectForm" method="POST">
+        @csrf
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="modalTitle">Create Project</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- BASIC INFO -->
+          <input type="hidden" name="_method" id="_method" value="POST">
+          <div class="mb-3">
+            <label>Project Name</label>
+            <input type="text" name="project_name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Description</label>
+            <textarea name="project_description" class="form-control" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label>Subscription</label>
+          
+          </div>
+
+          <!-- TECH STACK -->
+          <div class="mb-3">
+            <label>Backend</label>
+            <select name="backend[]" class="form-select" multiple>
+              <option value="Node.js">Node.js</option>
+              <option value="Python">Python</option>
+              <option value="Express">Express</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Frontend</label>
+            <select name="frontend[]" class="form-select" multiple>
+              <option value="React">React</option>
+              <option value="NextJS">NextJS</option>
+            </select>
+          </div>
+
+          <!-- INFRASTRUCTURE -->
+          <div class="mb-3">
+            <label>Storage Location</label>
+            <select name="data_storage_location" class="form-select">
+              <option value="Cloud-based">Cloud-based</option>
+              <option value="On-Premises">On-Premises</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" name="data_encryption" id="dataEncryptionToggle">
+            <label class="form-check-label">Enable Encryption</label>
+          </div>
+          <div class="mb-3">
+            <label>Encryption Type</label>
+            <input type="text" name="encryption_type" class="form-control">
+          </div>
+
+          <!-- AI/BIAS -->
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" name="bias_risk_factors" id="biasToggle">
+            <label class="form-check-label">Bias Risk Identified</label>
+          </div>
+          <div class="mb-3">
+            <label>Bias Description</label>
+            <textarea name="bias_risk_description" class="form-control"></textarea>
+          </div>
+
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" name="has_ai_ml" id="aiToggle">
+            <label class="form-check-label">AI/ML Used</label>
+          </div>
+          <div class="mb-3">
+            <label>AI Model Type</label>
+            <select name="ai_model_type[]" class="form-select" multiple>
+              <option value="Supervised">Supervised</option>
+              <option value="Reinforcement Learning">Reinforcement Learning</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Training Data Source</label>
+            <select name="training_data_source[]" class="form-select" multiple>
+              <option value="Proprietary">Proprietary</option>
+              <option value="Open-source">Open-source</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-@endsection
 
-@push('scripts')
+<!-- Edit Project Modal -->
+<div class="modal fade" id="editProjectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <form id="editProjectForm" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Edit Project</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+        <div class="modal-body">
+          <input type="hidden" name="project_id" id="edit_project_id">
+          <input type="hidden" name="subscription_id" id="edit_subscription_id">
+
+          <ul class="nav nav-tabs mb-4" id="editProjectTabs" role="tablist">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#edit_basicInfo" type="button">Basic Info</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#edit_technology" type="button">Technology</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#edit_dataSecurity" type="button">Data & Security</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#edit_compliance" type="button">Compliance & AI/ML</button></li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="edit_basicInfo">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Project Name *</label>
+                  <input name="project_name" id="edit_project_name" type="text" class="form-control" required>
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label">Project Description *</label>
+                  <textarea name="project_description" id="edit_project_description" class="form-control" required></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Subscription *</label>
+                  <select name="subscription_id" id="edit_subscription_select" class="form-select" required>
+                    <option value="">Loading...</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Status *</nlabel>
+                  <select name="status" id="edit_status" class="form-select" required>
+                    <option value="">Select</option>
+                    <option>Draft</option>
+                    <option>Pending</option>
+                    <option>Active</option>
+                    <option>In Active</option>
+                    <option>Archived</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Industry Domain *</label>
+                  <select name="industry_domain" id="edit_industry_domain" class="form-select" required>
+                    <option value="">Select</option>
+                    <option value="Healthcare & MedTech">Healthcare & MedTech</option>
+                    <option>Finance</option>
+                    <option>Education</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-secondary prev-btn" disabled>Previous</button>
+                <button type="button" class="btn btn-primary next-btn" data-next="#edit_technology">Next</button>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="edit_technology">
+              <h6>Technology Stack</h6>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label>Backend Technologies *</label>
+                  <select name="technology_stack_backend[]" id="edit_backend" class="form-select" multiple required>
+                    <option value="Node.js">Node.js</option>
+                    <option value="Express">Express</option>
+                    <option value="Python">Python</option>
+                    <option value="Django">Django</option>
+                    <option value="Laravel">Laravel</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Frontend Technologies</label>
+                  <select name="technology_stack_frontend[]" id="edit_frontend" class="form-select" multiple>
+                    <option value="React">React</option>
+                    <option value="NextJS">NextJS</option>
+                    <option value="Vue">Vue</option>
+                    <option value="Angular">Angular</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Database Technologies *</label>
+                  <select name="technology_stack_database[]" id="edit_database" class="form-select" multiple required>
+                    <option value="MySQL">MySQL</option>
+                    <option value="PostgreSQL">PostgreSQL</option>
+                    <option value="MongoDB">MongoDB</option>
+                    <option value="Redis">Redis</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>AI Models *</label>
+                  <select name="technology_stack_ai_models[]" id="edit_ai_models" class="form-select" multiple required>
+                    <option value="GPT-4">GPT-4</option>
+                    <option value="BERT">BERT</option>
+                    <option value="Med-PaLM">Med-PaLM</option>
+                    <option value="Custom Model">Custom Model</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>APIs *</label>
+                  <select name="technology_stack_apis[]" id="edit_apis" class="form-select" multiple required>
+                    <option value="OpenAI">OpenAI</option>
+                    <option value="Google Maps">Google Maps</option>
+                    <option value="Stripe">Stripe</option>
+                    <option value="Custom API">Custom API</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>API Integrations</label>
+                  <select name="apis_integrations[]" id="edit_apis_integrations" class="form-select" multiple>
+                    <option value="REST API">REST API</option>
+                    <option value="GraphQL">GraphQL</option>
+                    <option value="WebSocket">WebSocket</option>
+                    <option value="gRPC">gRPC</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Programming Languages</label>
+                  <select name="programming_languages[]" id="edit_programming_languages" class="form-select" multiple>
+                    <option value="Python">Python</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Java">Java</option>
+                    <option value="C++">C++</option>
+                    <option value="Go">Go</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary prev-btn" data-prev="#edit_basicInfo">Previous</button>
+                <button type="button" class="btn btn-primary next-btn" data-next="#edit_dataSecurity">Next</button>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="edit_dataSecurity">
+              <h6>Data Sources</h6>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label>Data Storage Location *</label>
+                  <select name="data_storage_location" id="edit_data_storage_location" class="form-select" required>
+                    <option>Cloud-based</option>
+                    <option>On-Premises</option>
+                    <option>Hybrid</option>
+                  </select>
+                </div>
+              </div>
+              <hr>
+              <h6>Security</h6>
+              <div class="row g-3 align-items-center">
+                <div class="col-md-3">
+                  <label>Data Encryption</label>
+                  <input type="checkbox" name="data_encryption" id="edit_data_encryption" class="form-check-input">
+                </div>
+                <div class="col-md-3">
+                  <label>Encryption Type</label>
+                  <select name="encryption_type" id="edit_encryption_type" class="form-select">
+                    <option>AES-256</option>
+                    <option>RSA-2048</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary prev-btn" data-prev="#edit_technology">Previous</button>
+                <button type="button" class="btn btn-primary next-btn" data-next="#edit_compliance">Next</button>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="edit_compliance">
+              <h6>Compliance & AI/ML</h6>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="bias_risk_factors" id="edit_bias_risk_factors">
+                <label class="form-check-label">Bias Risk Identified</label>
+              </div>
+              <div class="mb-3">
+                <label>Bias Description</label>
+                <textarea name="bias_risk_description" id="edit_bias_risk_description" class="form-control"></textarea>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="has_ai_ml" id="edit_has_ai_ml">
+                <label class="form-check-label">AI/ML Used</label>
+              </div>
+              <div class="mb-3">
+                <label>AI Model Type</label>
+                <select name="ai_model_type[]" id="edit_ai_model_type" class="form-select" multiple>
+                  <option value="Supervised">Supervised</option>
+                  <option value="Unsupervised">Unsupervised</option>
+                  <option value="Reinforcement Learning">Reinforcement Learning</option>
+                  <option value="Deep Learning">Deep Learning</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label>Training Data Source</label>
+                <select name="training_data_source[]" id="edit_training_data_source" class="form-select" multiple>
+                  <option value="Proprietary">Proprietary</option>
+                  <option value="Open-source">Open-source</option>
+                  <option value="Public datasets">Public datasets</option>
+                  <option value="User-generated">User-generated</option>
+                </select>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary prev-btn" data-prev="#edit_dataSecurity">Previous</button>
+                <button type="submit" class="btn btn-primary">Update Project</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+ </div>
+  </div>
+</div> 
+</div>
+</div>
+</div>
+
+<!-- JavaScript to Handle Edit -->
 <script>
-	jQuery('a[data-bs-toggle="tab"]').on('shown.bs.tab',function(e){
-		var hrefTarget = jQuery(this).attr('href');
-		if(hrefTarget == '#boxed'){
-			jQuery('#BoxedViewTabLink').removeClass('d-none');
-			jQuery('#ListViewTabLink').addClass('d-none');
-			
-		}else if(hrefTarget == '#list'){
-			jQuery('#ListViewTabLink').removeClass('d-none');
-			jQuery('#BoxedViewTabLink').addClass('d-none');
-		}
-		
-	});
+document.addEventListener('DOMContentLoaded', function() {
+  // Status filter handling
+  const filterTabs = document.querySelectorAll('#statusFilter .nav-link');
+  const projectCards = document.querySelectorAll('.project-card');
+  const emptyStateEl = document.getElementById('emptyState');
+
+  const updateEmptyState = () => {
+    const anyVisible = Array.from(projectCards).some(card => !card.classList.contains('d-none'));
+    if (emptyStateEl) emptyStateEl.classList.toggle('d-none', anyVisible);
+  };
+
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      // toggle active state
+      filterTabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+
+      const selectedStatus = this.dataset.status; // already lowercase
+      projectCards.forEach(card => {
+        const cardStatus = (card.dataset.status || '').toLowerCase();
+        if (selectedStatus === 'all' || cardStatus === selectedStatus) {
+          card.classList.remove('d-none');
+        } else {
+          card.classList.add('d-none');
+        }
+      });
+
+      updateEmptyState();
+    });
+  });
+
+  // Initialize empty state for default selection
+  updateEmptyState();
+
+  // Handle edit project clicks
+  document.querySelectorAll('.edit-project').forEach(btn => {
+    btn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      const projectId = this.dataset.id;
+      
+      try {
+        // Show loading state
+        this.innerHTML = 'Loading...';
+        this.disabled = true;
+        
+        // Fetch project data from API
+        const response = await fetch(`/projects/${projectId}/edit`, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Response not OK:', response.status, errorText);
+          throw new Error(`Failed to fetch project data: ${response.status} ${errorText}`);
+        }
+        
+        const projectData = await response.json();
+        console.log('Project data received:', projectData);
+        
+        if (projectData.error) {
+          throw new Error(projectData.error);
+        }
+        
+        const project = projectData.project || projectData;
+        
+        if (!project) {
+          throw new Error('No project data received');
+        }
+ 
+        // Helpers for multi-select population
+        const toArray = (val) => {
+          if (!val) return [];
+          if (Array.isArray(val)) return val;
+          if (typeof val === 'string') return val.split(',').map(s => s.trim()).filter(Boolean);
+          return [];
+        };
+        const selectMulti = (selectEl, values) => {
+          const set = new Set(values.map(v => String(v).toLowerCase().trim()));
+          Array.from(selectEl.options).forEach(opt => {
+            opt.selected = set.has(String(opt.value).toLowerCase().trim())
+              || set.has(String(opt.text).toLowerCase().trim());
+          });
+        };
+
+        // Populate subscriptions into the edit select (mirror create form)
+        const subs = projectData.subscriptions || [];
+        const subSelect = document.getElementById('edit_subscription_select');
+        if (subSelect) {
+          subSelect.innerHTML = '';
+          if (Array.isArray(subs) && subs.length > 0) {
+            subSelect.appendChild(new Option('Select', ''));
+            subs.forEach(s => {
+              const sid = s._id || s.id || s.subscription_id || '';
+              const label = `${sid} - ${(s.pricing_tier || s.plan_name || 'Subscription')} - ${(s.status || '')}`;
+              if (sid) subSelect.appendChild(new Option(label, sid));
+            });
+          } else {
+            subSelect.appendChild(new Option('No subscriptions available', ''));
+          }
+        }
+        
+        // Populate the edit form
+        document.getElementById('edit_project_id').value = projectId;
+        document.getElementById('edit_project_name').value = project.project_name || '';
+        document.getElementById('edit_project_description').value = project.project_description || '';
+        // Industry (case-insensitive)
+        (function() {
+          const sel = document.getElementById('edit_industry_domain');
+          const target = (project.industry_domain || '').toString().toLowerCase();
+          const match = Array.from(sel.options).find(o => o.value.toLowerCase() === target || o.text.toLowerCase() === target);
+          sel.value = match ? match.value : '';
+        })();
+        // Status (case-insensitive)
+        (function() {
+          const sel = document.getElementById('edit_status');
+          const target = (project.status || 'Draft').toString().toLowerCase();
+          const match = Array.from(sel.options).find(o => o.value.toLowerCase() === target || o.text.toLowerCase() === target);
+          sel.value = match ? match.value : 'Draft';
+        })();
+        // Subscription
+        document.getElementById('edit_subscription_id').value = project.subscription_id || '';
+        if (subSelect) {
+          const desired = (project.subscription_id || '').toString();
+          const opt = Array.from(subSelect.options).find(o => o.value === desired);
+          if (opt) subSelect.value = desired;
+        }
+        // Storage location (support both top-level and nested)
+        document.getElementById('edit_data_storage_location').value = (project.data_storage_location || project.infrastructure?.data_storage_location || 'Cloud-based');
+        // Encryption
+        const de = project.data_encryption || project.infrastructure?.data_encryption || {};
+        document.getElementById('edit_encryption_type').value = de.type || '';
+        document.getElementById('edit_bias_risk_description').value = project.bias_risk_factors?.description || '';
+        
+        // Handle checkboxes
+        document.getElementById('edit_data_encryption').checked = !!de.enabled;
+        document.getElementById('edit_bias_risk_factors').checked = !!(project.bias_risk_factors?.identified);
+        document.getElementById('edit_has_ai_ml').checked = !!project.has_ai_ml;
+        
+        // Handle multi-selects
+        const backendSelect = document.getElementById('edit_backend');
+        const frontendSelect = document.getElementById('edit_frontend');
+        const databaseSelect = document.getElementById('edit_database');
+        const aiModelsSelect = document.getElementById('edit_ai_models');
+        const apisSelect = document.getElementById('edit_apis');
+        const apiIntegrationsSelect = document.getElementById('edit_apis_integrations');
+        const programmingSelect = document.getElementById('edit_programming_languages');
+        const aiModelTypeSelect = document.getElementById('edit_ai_model_type');
+        const trainingDataSelect = document.getElementById('edit_training_data_source');
+        
+        // Reset selections
+        [backendSelect, frontendSelect, databaseSelect, aiModelsSelect, apisSelect, apiIntegrationsSelect, programmingSelect, aiModelTypeSelect, trainingDataSelect].forEach(sel => {
+          Array.from(sel.options).forEach(opt => (opt.selected = false));
+        });
+        // Set selected values (case-insensitive, accept comma strings)
+        const ts = project.technology_stack || {};
+        const backendVals = toArray(ts.backend);
+        const frontendVals = toArray(ts.frontend);
+        const databaseVals = toArray(ts.database);
+        const aiModelsVals = toArray(ts.ai_models);
+        const apisVals = toArray(ts.apis);
+        const apiIntegrationVals = toArray(project.apis_integrations);
+        const programmingVals = toArray(project.programming_languages);
+        const aiModelVals = toArray(project.ai_model_type);
+        const trainingVals = toArray(project.training_data_source);
+        selectMulti(backendSelect, backendVals);
+        selectMulti(frontendSelect, frontendVals);
+        selectMulti(databaseSelect, databaseVals);
+        selectMulti(aiModelsSelect, aiModelsVals);
+        selectMulti(apisSelect, apisVals);
+        selectMulti(apiIntegrationsSelect, apiIntegrationVals);
+        selectMulti(programmingSelect, programmingVals);
+        selectMulti(aiModelTypeSelect, aiModelVals);
+        selectMulti(trainingDataSelect, trainingVals);
+
+        // If Choices.js already enhanced these selects (by global initializer), update selections via instance
+        const syncChoicesInstance = (selectEl, values) => {
+          const instance = selectEl._choices || selectEl.choices || null;
+          if (!instance) return; // do not create a new instance to avoid duplicates
+          try {
+            instance.removeActiveItems();
+            const normalized = (values || []).map(v => String(v));
+            normalized.forEach(v => instance.setChoiceByValue(v));
+          } catch (e) {
+            console.warn('Choices sync warning:', e);
+          }
+        };
+
+        syncChoicesInstance(backendSelect, backendVals);
+        syncChoicesInstance(frontendSelect, frontendVals);
+        syncChoicesInstance(databaseSelect, databaseVals);
+        syncChoicesInstance(aiModelsSelect, aiModelsVals);
+        syncChoicesInstance(apisSelect, apisVals);
+        syncChoicesInstance(apiIntegrationsSelect, apiIntegrationVals);
+        syncChoicesInstance(programmingSelect, programmingVals);
+        syncChoicesInstance(aiModelTypeSelect, aiModelVals);
+        syncChoicesInstance(trainingDataSelect, trainingVals);
+
+        // Show the modal
+        const editModal = new bootstrap.Modal(document.getElementById('editProjectModal'));
+        editModal.show();
+        
+      } catch (error) {
+        console.error('Error fetching project:', error);
+        alert('Failed to load project data. ' + (error?.message || 'Please try again.'));
+      } finally {
+        // Reset button state
+        this.innerHTML = 'Edit';
+        this.disabled = false;
+      }
+    });
+  });
+  
+  // Handle edit form submission
+  document.getElementById('editProjectForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const projectId = formData.get('project_id');
+    const selectedSubscriptionId = document.getElementById('edit_subscription_select')?.value || formData.get('subscription_id');
+    
+    // Prepare the payload
+    const payload = {
+      subscription_id: selectedSubscriptionId,
+      project_name: formData.get('project_name'),
+      project_description: formData.get('project_description'),
+      industry_domain: formData.get('industry_domain'),
+      status: formData.get('status'),
+      technology_stack: {
+        backend: Array.from(document.getElementById('edit_backend').selectedOptions).map(opt => opt.value),
+        frontend: Array.from(document.getElementById('edit_frontend').selectedOptions).map(opt => opt.value),
+        database: Array.from(document.getElementById('edit_database').selectedOptions).map(opt => opt.value),
+        ai_models: Array.from(document.getElementById('edit_ai_models').selectedOptions).map(opt => opt.value),
+        apis: Array.from(document.getElementById('edit_apis').selectedOptions).map(opt => opt.value)
+      },
+      programming_languages: Array.from(document.getElementById('edit_programming_languages').selectedOptions).map(opt => opt.value),
+      apis_integrations: Array.from(document.getElementById('edit_apis_integrations').selectedOptions).map(opt => opt.value),
+      data_storage_location: formData.get('data_storage_location'),
+      data_encryption: {
+        enabled: formData.get('data_encryption') === 'on',
+        type: formData.get('encryption_type')
+      },
+      bias_risk_factors: {
+        identified: formData.get('bias_risk_factors') === 'on',
+        description: formData.get('bias_risk_description')
+      },
+      has_ai_ml: formData.get('has_ai_ml') === 'on',
+      ai_model_type: Array.from(document.getElementById('edit_ai_model_type').selectedOptions).map(opt => opt.value),
+      training_data_source: Array.from(document.getElementById('edit_training_data_source').selectedOptions).map(opt => opt.value)
+    };
+    
+    try {
+      const response = await fetch(`/projects/${projectId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(payload)
+      });
+      
+      if (response.ok) {
+        alert('Project updated successfully!');
+        // Close modal and refresh page
+        const editModal = bootstrap.Modal.getInstance(document.getElementById('editProjectModal'));
+        editModal.hide();
+        location.reload();
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        const detail = errorData.message || errorData.error || JSON.stringify(errorData) || 'Failed to update project';
+        throw new Error(detail);
+      }
+    } catch (error) {
+      console.error('Error updating project:', error);
+      alert('Failed to update project: ' + error.message);
+    }
+  });
+});
 </script>
-@endpush
+    </div>
+</div>
+
+@endsection

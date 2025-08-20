@@ -49,89 +49,316 @@
     </div>
     <!-- row -->
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">My Tickets</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-responsive-md">
-                            <thead>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">My Tickets</h4> 
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTicketModal">
+    <i class="bi bi-plus-circle"></i> Create Ticket
+</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                   <table class="table table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th style="width:80px;"><strong>#</strong></th>
+                                <th><strong>Ticket ID</strong></th>
+                                <th><strong>Title</strong></th>
+                                <th><strong>Category</strong></th>
+                                <th><strong>Status</strong></th>
+                                <th><strong>Action</strong></th>
+                            </tr>
+                        </thead>
+                       <tbody id="ticketsTableBody">
+                            @forelse ($tickets as $index => $ticket)
                                 <tr>
-		
-                                    <th style="width:80px;"><strong>#</strong></th>
-                                    <th><strong> Ticket Id	</strong></th>
-                                    <th><strong>Title</strong></th>
-                                    <th><strong>Category</strong></th>
-                                    <th><strong>STATUS</strong></th>
-                                    <th><strong>Action</strong></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>01</strong></td>
-                                    <td>Mr. Bobby</td>
-                                    <td>Dr. Jackson</td>
-                                    <td>01 August 2020</td>
-                                    <td><span class="badge light badge-success">Successful</span></td>
+                                    <td><strong>{{ str_pad($index+1, 2, '0', STR_PAD_LEFT) }}</strong></td>
+                                    <td>{{ $ticket['id'] }}</td>
+                                    <td>{{ $ticket['subject'] }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($ticket['created_at'])->format('d M Y') }}</td>
+                                    <td>
+                                        @php
+                                            $statusLabels = [
+                                                '1' => ['text' => 'Successful', 'class' => 'success'],
+                                                '2' => ['text' => 'Canceled', 'class' => 'danger'],
+                                                '3' => ['text' => 'Pending', 'class' => 'warning'],
+                                            ];
+                                            $status = $statusLabels[$ticket['status']] ?? ['text' => 'Unknown', 'class' => 'secondary'];
+                                        @endphp
+                                        <span class="badge light badge-{{ $status['class'] }}">{{ $status['text'] }}</span>
+                                    </td>
                                     <td>
                                         <div class="dropdown">
-                                            <button type="button" class="btn btn-success light sharp" data-bs-toggle="dropdown">
-                                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                                            <button type="button" class="btn btn-{{ $status['class'] }} light sharp" data-bs-toggle="dropdown">
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                        <circle fill="#000000" cx="5" cy="12" r="2"/>
+                                                        <circle fill="#000000" cx="12" cy="12" r="2"/>
+                                                        <circle fill="#000000" cx="19" cy="12" r="2"/>
+                                                    </g>
+                                                </svg>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ url('post-details') }}">View</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                                <a class="dropdown-item" href="{{ url('tickets/'.$ticket['id']) }}">View</a>
+                                                <a class="dropdown-item text-danger ticket-delete" data-id="{{ $ticket['id'] }}" href="javascript:void(0);">Delete</a>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
+                            @empty
                                 <tr>
-                                    <td><strong>02</strong></td>
-                                    <td>Mr. Bobby</td>
-                                    <td>Dr. Jackson</td>
-                                    <td>01 August 2020</td>
-                                    <td><span class="badge light badge-danger">Canceled</span></td>
-                                    
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-danger light sharp" data-bs-toggle="dropdown">
-                                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0);">View</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td colspan="6" class="text-center">No tickets found</td>
                                 </tr>
-                                <tr>
-                                    <td><strong>03</strong></td>
-                                    <td>Mr. Bobby</td>
-                                    <td>Dr. Jackson</td>
-                                    <td>01 August 2020</td>
-                                    <td><span class="badge light badge-warning">Pending</span></td>
-                                  
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-warning light sharp" data-bs-toggle="dropdown">
-                                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0);">View</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<!-- --------------------------------------------Ticket Model ------------------------------------------------------------- -->
+<div class="modal fade" id="createTicketModal" tabindex="-1" aria-labelledby="createTicketModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="createTicketModalLabel">Create New Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="createTicketForm" action="{{ route('tickets.create') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Subject *</label>
+                        <input type="text" name="subject" class="form-control" placeholder="Enter ticket subject" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Department *</label>
+                        <select name="department_id" id="ticketDepartmentSelect" class="form-select" required>
+                            <option value="">Select Department</option>
+                            <option value="1">Hosting Support</option>
+                            <option value="2">SSL Support</option>
+                            <option value="3">Domain Support</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Priority *</label>
+                        <select name="priority" id="ticketPrioritySelect" class="form-select" required>
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+    <label class="form-label">Description *</label>
+    <textarea name="description" class="form-control" placeholder="Enter ticket details" rows="4" required></textarea>
+</div>
+
+                    <!-- <div class="mb-3">
+                        <label class="form-label">Contents *</label>
+                        <textarea name="contents" class="form-control" placeholder="Enter ticket details" rows="4" required></textarea>
+                    </div> -->
+
+                    <div class="mb-3">
+                        <label class="form-label">Attachments</label>
+                        <input type="file" name="attachments[]" class="form-control" multiple>
+                        <small class="text-muted">You can upload multiple images or PDFs</small>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Ticket</button>
+                </div>
+            </form>
+
+        </div>
+    </div>  
+</div>
+
+<!-- --------------------------------------------Ticket Model ------------------------------------------------- -->
+
+@push('scripts')
+<script>
+(function() {
+    const form = document.getElementById('createTicketForm');
+    if (!form) return;
+
+    const modalEl = document.getElementById('createTicketModal');
+    const deptSelect = document.getElementById('ticketDepartmentSelect');
+    const prioSelect = document.getElementById('ticketPrioritySelect');
+
+    // Choices.js safe initialization helper
+    function safeInitChoices(selectEl, key) {
+        if (!window.choicesInstances) window.choicesInstances = {};
+        if (window.choicesInstances[key]) {
+            try { window.choicesInstances[key].destroy(); } catch(e) {}
+            window.choicesInstances[key] = null;
+        }
+        window.choicesInstances[key] = new Choices(selectEl, { removeItemButton: true, shouldSort: false });
+    }
+
+    async function populateSelect(selectEl, url, mapFn, preserveOnEmpty = false, choicesKey = null) {
+        if (!selectEl) return;
+        const original = selectEl.innerHTML;
+        try {
+            const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+            const json = await res.json();
+            const items = (json && json.data) || [];
+            if (!Array.isArray(items) || items.length === 0) {
+                if (!preserveOnEmpty) {
+                    selectEl.innerHTML = '<option value="">No options</option>';
+                }
+                return;
+            }
+            selectEl.innerHTML = '<option value="">Select</option>' + items.map(mapFn).join('');
+            if (choicesKey) safeInitChoices(selectEl, choicesKey);
+        } catch (_) {
+            if (!preserveOnEmpty) {
+                selectEl.innerHTML = original;
+            }
+        }
+    }
+
+    // Load options when modal is shown
+    if (modalEl && window.bootstrap) {
+        modalEl.addEventListener('show.bs.modal', function() {
+            // Keep manual options if API returns nothing
+            populateSelect(
+                deptSelect,
+                '{{ route('tickets.departments') }}',
+                (d) => `<option value="${d.id}">${d.name || d.title || ('Department #' + d.id)}</option>`,
+                true,
+                'departmentChoices'
+            );
+            populateSelect(
+                prioSelect,
+                '{{ route('tickets.priorities') }}',
+                (p) => `<option value="${p.id}">${p.name || p.title || ('Priority #' + p.id)}</option>`,
+                false,
+                'priorityChoices'
+            );
+        });
+    }
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Creating...';
+        }
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: formData
+            });
+            const data = await response.json().catch(() => ({}));
+
+            if (response.ok && (data.success === true || data.status === 'success')) {
+                // Try to update table without reload if we have the ticket payload
+                const tbody = document.getElementById('ticketsTableBody');
+                const ticket = (data.data && (data.data.ticket || data.data)) || null;
+                if (tbody && ticket && ticket.id && ticket.subject) {
+                    const newIndex = tbody.querySelectorAll('tr').length + 1;
+                    const createdAt = ticket.created_at ? new Date(ticket.created_at) : new Date();
+                    const dateString = createdAt.toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${String(newIndex).padStart(2,'0')}</strong></td>
+                        <td>${ticket.id}</td>
+                        <td>${ticket.subject}</td>
+                        <td>${dateString}</td>
+                        <td><span class="badge light badge-success">Opened</span></td>
+                        <td>
+                            <div class="d-flex">
+                                <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-eye"></i></a>
+                            </div>
+                        </td>`;
+                    tbody.prepend(tr);
+                } else {
+                    // Fallback to reload to reflect new data
+                    window.location.reload();
+                }
+
+                // Reset and close modal
+                form.reset();
+                const modalEl = document.getElementById('createTicketModal');
+                if (window.bootstrap && modalEl) {
+                    const modalInstance = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                    modalInstance.hide();
+                }
+            } else {
+                // Show basic error
+                const message = (data && (data.error || data.message)) || 'Failed to create ticket';
+                alert(message);
+            }
+        } catch (err) {
+            alert('An error occurred while creating the ticket.');
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        }
+    });
+
+    // Delete ticket handler
+    document.addEventListener('click', async function(e) {
+        const btn = e.target.closest('.ticket-delete');
+        if (!btn) return;
+        const id = btn.getAttribute('data-id');
+        if (!id) return;
+        if (!confirm('Are you sure you want to delete this ticket?')) return;
+
+        try {
+            // Try DELETE first; if blocked (405), retry as POST to /delete fallback
+            let res = await fetch(`{{ url('/tickets') }}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            });
+            let data = await res.json().catch(() => ({}));
+            if (res.status === 405) {
+                res = await fetch(`{{ url('/tickets') }}/${id}/delete`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                });
+                data = await res.json().catch(() => ({}));
+            }
+            if (res.ok && (data.success === true || (data.message && data.message.toLowerCase().includes('deleted')))) {
+                const row = btn.closest('tr');
+                if (row) row.remove();
+            } else {
+                alert(data.error || data.message || 'Failed to delete ticket');
+            }
+        } catch (err) {
+            alert('Network error while deleting ticket');
+        }
+    });
+})();
+</script>
+@endpush
+
+
+
+
+
+
 
 
 

@@ -1,13 +1,19 @@
 <?php
-
+// Logout route
+use Illuminate\Support\Facades\Route;
+Route::get('/logout', function() {
+    session()->flush();
+    return redirect()->route('login');
+})->name('logout');
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FastoAdminController;
-Route::get('/toggle-theme', function () {
-    $current = session('theme', 'light');
-    session(['theme' => $current === 'dark' ? 'light' : 'dark']);
-    return back();
-})->name('toggle.theme');
+Route::post('/theme/toggle', function () {
+    $data = json_decode(request()->getContent(), true);
+    $theme = $data['theme'] ?? 'light';
+    session(['theme' => $theme]);
+    return response()->json(['success' => true, 'theme' => $theme]);
+})->name('theme.toggle');
 // Default route — show login
 Route::get('/', function () {
     return redirect()->route('login');
@@ -18,6 +24,11 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+// ----------------------------------Signup -------------------------------------------------------------------------
+Route::get('/signup', [DashboardController::class, 'showSignupForm'])->name('signup.form');
+Route::post('/signup/register', [DashboardController::class, 'register'])->name('signup.register');
+Route::post('/signup/complete-profile', [DashboardController::class, 'completeProfile'])->name('signup.complete');
+// -----------------------------------------------------------------------------------------------------------------------------------------------
 
 // Dashboard route
 Route::get('/index', [DashboardController::class, 'show'])->name('dashboard.index');
@@ -29,12 +40,47 @@ Route::get('/index', [DashboardController::class, 'show'])->name('dashboard.inde
   Route::get('/project_view/{id}', [DashboardController::class, 'view'])->name('project.view');
 Route::get('/project_view/{id}/tab/{tab}', [DashboardController::class, 'loadTabContent']);
 Route::post('/project/create', [DashboardController::class, 'createProject'])->name('project.create');
-// routes/web.php
-Route::get('/table-bootstrap-basic', [DashboardController::class, 'subscription'])
-    ->name('fasto.table.bootstrap-basic');
 
-  Route::get('/ui-alert',[DashboardController::class,'ui_alert']);
- Route::get('/table-datatable-basic',[DashboardController::class,'table_datatable_basic']);
+// Dashboard and protected routes
+Route::middleware(['access.token'])->group(function () {
+    Route::get('/index', [DashboardController::class, 'show'])->name('dashboard.index');
+    Route::get('/projects', [DashboardController::class, 'projects'])->name('projects.list');
+    Route::get('/ui-card', [DashboardController::class, 'ui_card'])->name('ui_card');
+    Route::get('/project_view/{id}', [DashboardController::class, 'view'])->name('project.view');
+    Route::get('/project_view/{id}/tab/{tab}', [DashboardController::class, 'loadTabContent']);
+    Route::post('/project/create', [DashboardController::class, 'createProject'])->name('project.create');
+    Route::get('/table-bootstrap-basic', [DashboardController::class, 'subscription'])->name('fasto.table.bootstrap-basic');
+    Route::get('/ui-alert', [DashboardController::class, 'ticketsView']);
+    Route::get('/table-datatable-basic', [DashboardController::class, 'table_datatable_basic']);
+    Route::get('/form', [DashboardController::class, 'create']);
+    Route::post('/projects/store', [DashboardController::class, 'store'])->name('projects.store');
+    Route::get('/projects/create', [DashboardController::class, 'create'])->name('projects.create');
+
+    Route::get('/projects/{id}/edit', [DashboardController::class, 'edit'])->name('projects.edit');
+Route::put('/projects/{id}', [DashboardController::class, 'updateProject'])->name('projects.update');
+
+
+    // Route::get('/projects/{id}/edit', [DashboardController::class, 'edit'])->name('projects.edit');
+    // Route::put('/projects/{id}', [DashboardController::class, 'updateProject'])->name('projects.update');
+
+    Route::delete('/project/{id}', [DashboardController::class, 'destroy'])->name('projects.destroy');
+    Route::get('/app-profile', [DashboardController::class, 'showprofile'])->name('profile.show');
+    Route::post('/profile', [DashboardController::class, 'update'])->name('profile.update');
+    Route::get('/table-datatable-basic', [DashboardController::class, 'userFrameworks']);
+    Route::get('/user-frameworks/create', [DashboardController::class, 'createFramework'])->name('user-frameworks.create');
+    Route::post('/user-frameworks/store', [DashboardController::class, 'storeFramework'])->name('user-frameworks.store');
+});
+
+Route::get('/tickets/departments', [DashboardController::class, 'fetchTicketDepartments'])->name('tickets.departments');
+Route::get('/tickets/priorities', [DashboardController::class, 'fetchTicketPriorities'])->name('tickets.priorities');
+Route::post('/tickets/create', [DashboardController::class, 'createTicket'])->name('tickets.create');
+Route::get('/tickets/{id}', [DashboardController::class, 'ticketShow'])->name('tickets.show');
+Route::post('/tickets/{id}/reply', [DashboardController::class, 'ticketReply'])->name('tickets.reply');
+Route::delete('/tickets/{id}', [DashboardController::class, 'ticketDestroy'])->name('tickets.destroy');
+Route::post('/tickets/{id}/delete', [DashboardController::class, 'ticketDestroy'])->name('tickets.delete');
+Route::delete('/tickets/{id}', [DashboardController::class, 'ticketDestroy'])->name('tickets.destroy');
+Route::post('/tickets/{id}/delete', [DashboardController::class, 'ticketDestroy'])->name('tickets.delete');
+
 
 // Route::controller(FastoAdminController::class)->group(function() {
 //       Route::get('/','login');

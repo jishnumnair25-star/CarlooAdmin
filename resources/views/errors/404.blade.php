@@ -6,8 +6,11 @@
         <h1 class="error-text font-weight-bold">404</h1>
         <h4><i class="fa fa-exclamation-triangle text-warning"></i> The page you were looking for is not found!</h4>
         <p>You may have mistyped the address or the page may have moved.</p>
+        <div class="mb-3">
+            <span class="text-danger small">// Logout route<br>use Illuminate\Support\Facades\Route;<br>Route::get('/logout', function() { session()->flush(); return redirect()->route('login'); })->name('logout');<br><br>Note: The login page URL is <b>/login</b> (not <b>/page-login</b>).</span>
+        </div>
         <div>
-            <a class="btn btn-primary" href="{{ url('index')}}">Back to Home</a>
+            <a class="btn btn-primary" href="{{ route('login') }}">Back to Login</a>
         </div>
     </div>
 </div>
