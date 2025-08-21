@@ -1,3 +1,4 @@
+
 <?php
 // Logout route
 use Illuminate\Support\Facades\Route;
@@ -5,6 +6,9 @@ Route::get('/logout', function() {
     session()->flush();
     return redirect()->route('login');
 })->name('logout');
+
+
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FastoAdminController;
@@ -33,10 +37,10 @@ Route::post('/signup/complete-profile', [DashboardController::class, 'completePr
 // Dashboard route
 Route::get('/index', [DashboardController::class, 'show'])->name('dashboard.index');
  Route::get('/projects',[DashboardController::class,'projects'])->name('projects.list');;
-  Route::get('/ui-card',[DashboardController::class,'ui_card']);
+  Route::get('/chooseplan',[DashboardController::class,'ui_card']);
 
-  Route::get('/ui-card', [DashboardController::class, 'ui_card'])->name('ui_card');
-    // Route::get('/table-bootstrap-basic',[FastoAdminController::class,'table_bootstrap_basic']);
+  Route::get('/chooseplan', [DashboardController::class, 'ui_card'])->name('ui_card');
+    // Route::get('/Subscriptions',[FastoAdminController::class,'table_bootstrap_basic']);
   Route::get('/project_view/{id}', [DashboardController::class, 'view'])->name('project.view');
 Route::get('/project_view/{id}/tab/{tab}', [DashboardController::class, 'loadTabContent']);
 Route::post('/project/create', [DashboardController::class, 'createProject'])->name('project.create');
@@ -45,19 +49,21 @@ Route::post('/project/create', [DashboardController::class, 'createProject'])->n
 Route::middleware(['access.token'])->group(function () {
     Route::get('/index', [DashboardController::class, 'show'])->name('dashboard.index');
     Route::get('/projects', [DashboardController::class, 'projects'])->name('projects.list');
-    Route::get('/ui-card', [DashboardController::class, 'ui_card'])->name('ui_card');
+    Route::get('/chooseplan', [DashboardController::class, 'ui_card'])->name('ui_card');
     Route::get('/project_view/{id}', [DashboardController::class, 'view'])->name('project.view');
     Route::get('/project_view/{id}/tab/{tab}', [DashboardController::class, 'loadTabContent']);
     Route::post('/project/create', [DashboardController::class, 'createProject'])->name('project.create');
-    Route::get('/table-bootstrap-basic', [DashboardController::class, 'subscription'])->name('fasto.table.bootstrap-basic');
-    Route::get('/ui-alert', [DashboardController::class, 'ticketsView']);
-    Route::get('/table-datatable-basic', [DashboardController::class, 'table_datatable_basic']);
+    Route::get('/Subscriptions', [DashboardController::class, 'subscription'])->name('fasto.table.bootstrap-basic');
+    Route::get('/Supportcenter', [DashboardController::class, 'ticketsView']);
+    Route::get('/User_Framework', [DashboardController::class, 'table_datatable_basic']);
     Route::get('/form', [DashboardController::class, 'create']);
     Route::post('/projects/store', [DashboardController::class, 'store'])->name('projects.store');
     Route::get('/projects/create', [DashboardController::class, 'create'])->name('projects.create');
 
     Route::get('/projects/{id}/edit', [DashboardController::class, 'edit'])->name('projects.edit');
-Route::put('/projects/{id}', [DashboardController::class, 'updateProject'])->name('projects.update');
+    Route::put('/projects/{id}', [DashboardController::class, 'updateProject'])->name('projects.update');
+// Route::put('/projects/{id}', [DashboardController::class, 'updateProject'])->name('projects.update');
+Route::delete('/project/{id}', [DashboardController::class, 'destroy'])->name('projects.destroy');
 
 
     // Route::get('/projects/{id}/edit', [DashboardController::class, 'edit'])->name('projects.edit');
@@ -66,9 +72,11 @@ Route::put('/projects/{id}', [DashboardController::class, 'updateProject'])->nam
     Route::delete('/project/{id}', [DashboardController::class, 'destroy'])->name('projects.destroy');
     Route::get('/app-profile', [DashboardController::class, 'showprofile'])->name('profile.show');
     Route::post('/profile', [DashboardController::class, 'update'])->name('profile.update');
-    Route::get('/table-datatable-basic', [DashboardController::class, 'userFrameworks']);
+    Route::get('/User_Framework', [DashboardController::class, 'userFrameworks']);
     Route::get('/user-frameworks/create', [DashboardController::class, 'createFramework'])->name('user-frameworks.create');
     Route::post('/user-frameworks/store', [DashboardController::class, 'storeFramework'])->name('user-frameworks.store');
+// API for fetching a single framework for edit/view (for AJAX edit modal)
+Route::get('/framework/{id}', [DashboardController::class, 'getFramework'])->name('framework.get');
 });
 
 Route::get('/tickets/departments', [DashboardController::class, 'fetchTicketDepartments'])->name('tickets.departments');
@@ -80,8 +88,17 @@ Route::delete('/tickets/{id}', [DashboardController::class, 'ticketDestroy'])->n
 Route::post('/tickets/{id}/delete', [DashboardController::class, 'ticketDestroy'])->name('tickets.delete');
 Route::delete('/tickets/{id}', [DashboardController::class, 'ticketDestroy'])->name('tickets.destroy');
 Route::post('/tickets/{id}/delete', [DashboardController::class, 'ticketDestroy'])->name('tickets.delete');
+Route::delete('/frameworks/{id}', [DashboardController::class, 'destroyframework'])
+     ->name('frameworks.destroy');
 
 
+
+
+
+
+
+     
+//Route::delete('/frameworks/{id}', [DashboardController::class, 'delete'])->name('frameworks.delete');
 // Route::controller(FastoAdminController::class)->group(function() {
 //       Route::get('/','login');
 //     Route::get('/index','dashboard');
@@ -112,7 +129,7 @@ Route::post('/tickets/{id}/delete', [DashboardController::class, 'ticketDestroy'
 //     Route::get('/chart-sparkline','chart_sparkline');
 //     Route::get('/chart-peity','chart_peity');
 //     Route::get('/ui-accordion','ui_accordion');
-//     Route::get('/ui-alert','ui_alert');
+//     Route::get('/Supportcenter','ui_alert');
 //     Route::get('/ui-badge','ui_badge');
 //     Route::get('/ui-button','ui_button');
 //     Route::get('/ui-modal','ui_modal');
@@ -141,8 +158,8 @@ Route::post('/tickets/{id}/delete', [DashboardController::class, 'ticketDestroy'
 //     Route::get('/ckeditor','form_ckeditor');
 //     Route::get('/form-pickers','form_pickers');
 //     Route::get('/form-validation-jquery','form_validation_jquery');
-//     Route::get('/table-bootstrap-basic','table_bootstrap_basic');
-//     Route::get('/table-datatable-basic','table_datatable_basic');
+//     Route::get('/Subscriptions','table_bootstrap_basic');
+//     Route::get('/User_Framework','table_datatable_basic');
 //     Route::get('/page-register','page_register');
    
 //     Route::get('/page-error-400','page_error_400');

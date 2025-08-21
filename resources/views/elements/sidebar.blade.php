@@ -21,24 +21,24 @@
                 </a>
             </li>
 
-             <li><a href="{{ url('ui-card')}}" class="ai-icon" aria-expanded="false">
+             <!-- <li><a href="{{ url('chooseplan')}}" class="ai-icon" aria-expanded="false">
                      <i class="flaticon-table"></i>
                     <span class="nav-text">Choose Plan</span>
                 </a>
-            </li>
+            </li> -->
             <li>
-                <a href="{{ url('table-bootstrap-basic')}}" class="ai-icon" aria-expanded="false">
+                <a href="{{ url('Subscriptions')}}" class="ai-icon" aria-expanded="false">
                      <i class="flaticon-web"></i>
                     <span class="nav-text">Subscriptions</span>
                 </a>
             </li>
-             <li><a href="{{ url('ui-alert')}}" class="ai-icon" aria-expanded="false">
+             <li><a href="{{ url('Supportcenter')}}" class="ai-icon" aria-expanded="false">
                       <i class="flaticon-monitor"></i>
                     <span class="nav-text">Supportcenter</span>
                 </a>
             </li>
 
-<li><a href="{{ url('table-datatable-basic')}}" class="ai-icon" aria-expanded="false">
+<li><a href="{{ url('User_Framework')}}" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-admin"></i>
                     <span class="nav-text">User  Framework</span>
                 </a>

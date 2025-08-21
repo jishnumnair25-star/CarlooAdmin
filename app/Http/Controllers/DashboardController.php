@@ -7,6 +7,23 @@ use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
+    // Fetch a single framework for edit/view (AJAX)
+    public function getFramework($id)
+    {
+        $token = session('access_token');
+        if (!$token) {
+            return response()->json(['error' => 'Not authenticated'], 401);
+        }
+        $response = \Illuminate\Support\Facades\Http::withToken($token)
+            ->get('https://carlo.algorethics.ai/api/user-frameworks/' . $id);
+        if ($this->handleTokenExpiry($response)) return response()->json(['error' => 'Session expired'], 401);
+        if ($response->successful()) {
+            $data = $response->json();
+            $framework = $data['data'] ?? $data;
+            return response()->json(['framework' => $framework]);
+        }
+        return response()->json(['error' => 'Framework not found'], 404);
+    }
     /**
      * Helper: If response is 401, clear session and redirect to login.
      * Returns null if not 401, otherwise a redirect response.
@@ -77,17 +94,42 @@ class DashboardController extends Controller
     //     return view('fasto.ui.card', compact('page_title', 'page_description'));
     // }
 
-public function ui_card()
+public function ui_card(Request $request)
 {
     $response = Http::get('https://carlo.algorethics.ai/api/pricing');
 
     if ($response->successful()) {
         $plans = $response->json()['data'];
-        return view('fasto.ui.card', compact('plans'));
+
+        // Plan order (rank system)
+        $planOrder = [
+            'seed'     => 1,
+            'growth'   => 2,
+            'pro'      => 3,
+            'global'   => 4,
+            'infinite' => 5,
+        ];
+
+        // Get current tier from query param (?tier=seed)
+        $currentTier = strtolower($request->get('tier', 'seed'));
+        $currentRank = $planOrder[$currentTier] ?? 0;
+
+        // Filter plans: only higher than current
+        $filteredPlans = array_filter($plans, function ($plan) use ($planOrder, $currentRank) {
+            $rank = $planOrder[strtolower($plan['tier'])] ?? 0;
+            return $rank > $currentRank;
+        });
+
+        return view('fasto.ui.card', [
+            'plans' => $filteredPlans,
+            'currentTier' => ucfirst($currentTier),
+        ]);
     }
 
     return back()->with('error', 'Failed to load pricing plans.');
 }
+
+
 
 public function projects()
 {
@@ -113,6 +155,10 @@ public function projects()
         'statusCounts' => $statusCounts,
     ]);
 }
+
+
+
+
 
  public function view($id)
     {
@@ -525,6 +571,8 @@ public function store(Request $request)
 }
 
 
+
+
     public function edit(Request $request, $id)
     {
         $token = session('access_token');
@@ -539,23 +587,20 @@ public function store(Request $request)
         try {
             \Log::info('Making API request to fetch project', ['id' => $id]);
             $projectResponse = Http::withToken($token)->get("https://carlo.algorethics.ai/api/project/$id");
-            
+            if ($redir = $this->handleTokenExpiry($projectResponse)) return $redir;
             \Log::info('API response received', ['status' => $projectResponse->status(), 'successful' => $projectResponse->successful()]);
-            
             if (!$projectResponse->successful()) {
                 \Log::error('API request failed', ['status' => $projectResponse->status(), 'body' => $projectResponse->body()]);
                 return response()->json(['error' => 'Failed to fetch project data'], $projectResponse->status());
             }
-
             $project = $projectResponse->json('data');
-            
             if (!$project) {
                 \Log::warning('No project data in API response');
                 return response()->json(['error' => 'No project data found'], 404);
             }
-
             // Also fetch subscriptions for the subscription select
             $subsRes = Http::withToken($token)->get('https://carlo.algorethics.ai/api/subscription');
+            if ($redir = $this->handleTokenExpiry($subsRes)) return $redir;
             $subscriptions = [];
             if ($subsRes->successful()) {
                 $json = $subsRes->json();
@@ -572,7 +617,6 @@ public function store(Request $request)
                     ->values()
                     ->all();
             }
-
             // Normalize technology_stack for Blade prefill
             if (isset($project['technology_stack']) && is_string($project['technology_stack'])) {
                 $project['technology_stack'] = json_decode($project['technology_stack'], true) ?: [];
@@ -582,7 +626,6 @@ public function store(Request $request)
                     $project['technology_stack'][$key] = [];
                 }
             }
-
             \Log::info('Project data retrieved successfully', ['project_id' => $project['id'] ?? 'unknown']);
             if ($request->expectsJson()) {
                 return response()->json([
@@ -603,123 +646,12 @@ public function store(Request $request)
         }
     }
 
-    public function updateProject(Request $request, $id)
-    {
-        // Log the incoming request data for debugging
-        \Log::info('Project update request data:', $request->all());
+   public function updateProject(Request $request, $id)
+{
+    print_r($id);
+    
+}
 
-        $validated = $request->validate([
-            'subscription_id' => 'required|string',
-            'project_name' => 'required|string',
-            'project_description' => 'required|string',
-            'industry_domain' => 'required|string',
-            'status' => 'required|string',
-            'data_storage_location' => 'required|string',
-        ]);
-
-        // Helper to get array or default
-        $arr = function($val) {
-            return is_array($val) ? $val : (empty($val) ? [] : [$val]);
-        };
-        // Helper to get boolean
-        $bool = function($val) {
-            return filter_var($val, FILTER_VALIDATE_BOOLEAN);
-        };
-
-        // Parse nested objects
-        $technologyStack = $request->input('technology_stack', []);
-        if (is_string($technologyStack)) $technologyStack = json_decode($technologyStack, true);
-        $technologyStack = is_array($technologyStack) ? $technologyStack : [];
-        foreach(['backend','frontend','database','ai_models','apis'] as $k) {
-            if (!isset($technologyStack[$k]) || !is_array($technologyStack[$k])) $technologyStack[$k] = [];
-        }
-
-        $infrastructure = $request->input('infrastructure', []);
-        if (is_string($infrastructure)) $infrastructure = json_decode($infrastructure, true);
-        $infrastructure = is_array($infrastructure) ? $infrastructure : [];
-        foreach(['cloud_provider','containerization'] as $k) {
-            if (!isset($infrastructure[$k]) || !is_array($infrastructure[$k])) $infrastructure[$k] = [];
-        }
-        if (!isset($infrastructure['deployment_type'])) $infrastructure['deployment_type'] = '';
-
-        $dataSources = $request->input('data_sources', []);
-        if (is_string($dataSources)) $dataSources = json_decode($dataSources, true);
-        $dataSources = is_array($dataSources) ? $dataSources : [];
-        foreach(['structure_type','access_type','processing_type'] as $k) {
-            if (!isset($dataSources[$k]) || !is_array($dataSources[$k])) $dataSources[$k] = [];
-        }
-
-        $dataEncryption = $request->input('data_encryption', []);
-        if (is_string($dataEncryption)) $dataEncryption = json_decode($dataEncryption, true);
-        $dataEncryption = is_array($dataEncryption) ? $dataEncryption : [];
-        if (!isset($dataEncryption['enabled'])) $dataEncryption['enabled'] = false;
-        if (!isset($dataEncryption['type'])) $dataEncryption['type'] = 'AES-256';
-
-        $biasRiskFactors = $request->input('bias_risk_factors', []);
-        if (is_string($biasRiskFactors)) $biasRiskFactors = json_decode($biasRiskFactors, true);
-        $biasRiskFactors = is_array($biasRiskFactors) ? $biasRiskFactors : [];
-        if (!isset($biasRiskFactors['identified'])) $biasRiskFactors['identified'] = false;
-        if (!isset($biasRiskFactors['description'])) $biasRiskFactors['description'] = '';
-
-        // Build payload
-        $payload = [
-            'subscription_id' => $request->input('subscription_id'),
-            'project_name' => $request->input('project_name'),
-            'project_description' => $request->input('project_description'),
-            'industry_domain' => $request->input('industry_domain'),
-            'status' => $request->input('status'),
-            'technology_stack' => $technologyStack,
-            'programming_languages' => is_array($request->input('programming_languages')) ? $request->input('programming_languages') : [],
-            'infrastructure' => $infrastructure,
-            'apis_integrations' => is_array($request->input('apis_integrations')) ? $request->input('apis_integrations') : [],
-            'data_sources' => $dataSources,
-            'data_storage_location' => $request->input('data_storage_location'),
-            'data_sensitivity' => is_array($request->input('data_sensitivity')) ? $request->input('data_sensitivity') : [],
-            'data_encryption' => $dataEncryption,
-            'access_control' => is_array($request->input('access_control')) ? $request->input('access_control') : [],
-            'audit_logging' => $bool($request->input('audit_logging')),
-            'user_consent_mechanism' => $bool($request->input('user_consent_mechanism')),
-            'compliance_standards' => is_array($request->input('compliance_standards')) ? $request->input('compliance_standards') : [],
-            'bias_risk_factors' => $biasRiskFactors,
-            'fairness_transparency_practices' => $bool($request->input('fairness_transparency_practices')),
-            'has_ai_ml' => $bool($request->input('has_ai_ml')),
-            'ai_model_type' => is_array($request->input('ai_model_type')) ? $request->input('ai_model_type') : [],
-            'training_data_source' => is_array($request->input('training_data_source')) ? $request->input('training_data_source') : [],
-            'model_monitoring' => $bool($request->input('model_monitoring')),
-            'bias_detection' => $bool($request->input('bias_detection')),
-            'automated_decision_making' => $bool($request->input('automated_decision_making')),
-            'webhooks_notifications' => $bool($request->input('webhooks_notifications')),
-            'custom_rules' => $bool($request->input('custom_rules')),
-            'third_party_plugins' => $bool($request->input('third_party_plugins')),
-            'compliance_consultation' => $bool($request->input('compliance_consultation')),
-        ];
-
-        \Log::info('Constructed payload for API update:', $payload);
-
-        $token = session('access_token');
-        if (!$token) {
-            return response()->json(['success' => false, 'message' => 'Authentication token missing'], 401);
-        }
-
-        try {
-            $response = Http::withToken($token)->put("https://carlo.algorethics.ai/api/project/$id", $payload);
-            \Log::info('API Update Response Status:', ['status' => $response->status()]);
-            \Log::info('API Update Response Body:', ['body' => $response->body()]);
-            if ($response->successful()) {
-                return response()->json(['success' => true, 'message' => 'Project updated successfully!']);
-            }
-            return response()->json([
-                'success' => false,
-                'message' => ($response->json('message') ?? $response->body() ?? 'Unknown error'),
-                'error'   => $response->body(),
-            ], $response->status());
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error updating project: ' . $e->getMessage(),
-            ], 500);
-        }
-    }
 
 public function destroy($id)
 {
@@ -759,11 +691,11 @@ public function destroy($id)
         // Validate
         $validated = $request->validate([
             'name' => 'required|string',
-            'description' => 'required|string',
+            'description' => 'string',
             'version' => 'required|string',
             'selected_governance_frameworks' => 'required|array',
             'custom_rules' => 'nullable|array',
-            'status' => 'required|string',
+            'status' => 'string',
         ]);
 
         // Convert checkbox to boolean
@@ -785,10 +717,35 @@ public function destroy($id)
             ->post('https://carlo.algorethics.ai/api/user-frameworks', $payload);
         if ($redir = $this->handleTokenExpiry($response)) return $redir;
         if ($response->successful()) {
+            if ($request->ajax()) {
+                return response()->json(['success' => true, 'message' => 'Framework created successfully!']);
+            }
             return back()->with('success', 'Framework created successfully!');
+        }
+        if ($request->ajax()) {
+            return response()->json(['success' => false, 'message' => 'Failed to create framework: ' . $response->body()], 400);
         }
         return back()->with('error', 'Failed to create framework: ' . $response->body());
     }
+
+public function destroyframework($id)
+{
+    $token = session('access_token');
+
+    $response = Http::withToken($token)
+        ->delete("https://carlo.algorethics.ai/api/user-frameworks/{$id}");
+
+    if ($response->successful()) {
+        return response()->json(['message' => 'Framework deleted successfully.'], 200);
+    }
+
+    return response()->json([
+        'message' => $response->json('message') ?? 'Failed to delete framework.'
+    ], $response->status());
+}
+
+
+
 
 // -------------------------------------------------------Support Center Controller -----------------------------------------------------------------------------
 public function ticketsView()
@@ -1206,6 +1163,57 @@ public function completeProfile(Request $request)
 
 
 
+ public function delete($id)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . session('access_token'),
+                'Accept' => 'application/json',
+            ])->delete("https://carlo.algorethics.ai/api/framework/{$id}");
+
+            if ($response->successful()) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Framework deleted successfully.'
+                ]);
+            }
+
+            return response()->json([
+                'status' => 'error',
+                'message' => $response->json()['message'] ?? 'Failed to delete framework.'
+            ], $response->status());
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Something went wrong: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+public function choosePlan(Request $request)
+{
+    // Example: loading from config or API
+    $plans = config('plans'); 
+
+    // Plan order for comparison
+    $planOrder = ['seed' => 1, 'growth' => 2, 'pro' => 3, 'global' => 4, 'infinite' => 5];
+
+    // Get current tier from query param
+    $currentTier = strtolower($request->get('tier', 'seed'));
+    $currentRank = $planOrder[$currentTier] ?? 0;
+
+    // Filter: only keep plans higher than current
+    $filteredPlans = array_filter($plans, function($plan) use ($planOrder, $currentRank) {
+        $rank = $planOrder[strtolower($plan['tier'])] ?? 0;
+        return $rank > $currentRank;
+    });
+
+    return view('chooseplan', [
+        'plans' => $filteredPlans,   // <-- pass filtered
+        'currentTier' => ucfirst($currentTier),
+    ]);
+}
 
 }
 
